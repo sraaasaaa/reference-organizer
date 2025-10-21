@@ -1,0 +1,99 @@
+[
+  {
+    "id": "1",
+    "title": "Advanced Natural Language Processing Techniques",
+    "dataset": "WikiText-103",
+    "messageType": "Text Analysis",
+    "size": "150MB",
+    "annotationModel": "BERT-base",
+    "detectionModel": "RoBERTa-large",
+    "metric": "F1: 0.92",
+    "year": "2023",
+    "author":"SARHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
+    "citations": {
+      "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145.",
+      "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
+      "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
+    }
+  },
+  {
+    "id": "2",
+    "title": "Real-time Anomaly Detection in Network Traffic",
+    "dataset": "CICIDS2017",
+    "messageType": "Network Data",
+    "size": "2.3GB",
+    "annotationModel": "LSTM",
+    "detectionModel": "Autoencoder",
+    "metric": "Accuracy: 97.8%",
+    "year": "2022",
+    "citations": {
+      "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145.",
+      "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
+      "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
+    }
+  },
+  {
+    "id": "3",
+    "title": "Multimodal Sentiment Analysis for Social Media",
+    "dataset": "MM-IMDb",
+    "messageType": "Multimodal",
+    "size": "850MB",
+    "annotationModel": "CLIP",
+    "detectionModel": "ViLT",
+    "metric": "Precision: 0.89",
+    "year": "2023",
+    "citations": {
+      "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145.",
+      "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
+      "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
+    }
+  },
+  {
+    "id": "4",
+    "title": "Zero-shot Learning for Rare Disease Classification",
+    "dataset": "Orphanet",
+    "messageType": "Medical Text",
+    "size": "52MB",
+    "annotationModel": "GPT-3.5",
+    "detectionModel": "T0++",
+    "metric": "Recall: 0.94",
+    "year": "2023",
+    "citations": {
+      "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145.",
+      "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
+      "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
+    }
+  },
+  {
+    "id": "5",
+    "title": "Efficient Object Detection in Aerial Imagery",
+    "dataset": "DOTA",
+    "messageType": "Satellite Images",
+    "size": "15GB",
+    "annotationModel": "YOLOv7",
+    "detectionModel": "DETR",
+    "metric": "mAP: 72.4",
+    "year": "2022",
+    "citations": {
+      "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145.",
+      "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
+      "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
+    }
+  },
+  {
+    "id": "6",
+    "title": "Speech Emotion Recognition in Low-resource Languages",
+    "dataset": "IEMOCAP",
+    "messageType": "Audio",
+    "size": "320MB",
+    "annotationModel": "Wav2Vec 2.0",
+    "detectionModel": "HuBERT",
+    "metric": "UA: 68.3%",
+    "year": "2023",
+    "citations": {
+      "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145. sarah sarah sarah sarah",
+      "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
+      "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
+    }
+  }
+]

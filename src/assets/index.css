@@ -1,0 +1,776 @@
+/* Variables CSS */
+:root {
+  --primary: #024059;
+  --primary-dark: #2563eb; 
+  --secondary: #024059;
+  --background: #FBF8F1;
+  --card-bg: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 16px;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --card-bg: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border: #334155;
+  }
+}
+
+/* Reset et styles de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Layout principal */
+.app-container {
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.main-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* En-tête */
+.app-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: #024059; 
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+}
+
+.app-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+/* Barre de filtres */
+.filters-bar {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  width: 1rem;
+  height: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.filter-group {
+  min-width: 200px;
+}
+
+.filter-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Layout de contenu */
+.content-layout {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  align-self: flex-start;
+}
+
+.sidebar-header {
+  padding: 0 1.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+}
+
+.collections-list {
+  flex: 1;
+  padding: 0 0.5rem;
+}
+
+.collection-item {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.75rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.collection-item:hover {
+  background: #F0E4DB;
+}
+
+.collection-item.active {
+  background: #E8D4C2;
+  color: black;
+}
+
+.collection-count {
+  background: #FBF8F1;
+  color: black;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  padding: 1.5rem 1.5rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+
+.add-collection-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #E8D4C2;
+  color: black;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px #C9B19C;
+}
+
+.add-collection-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px #C9B19C;
+}
+
+/* Contenu principal */
+.main-content {
+  flex: 1;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.content-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.add-reference-btn {
+  padding: 0.75rem 1.5rem;
+  background: #E8D4C2;
+  color: black;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px #C9B19C;
+}
+
+.add-reference-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px #C9B19C;
+}
+
+/* Grille de références */
+.references-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Cartes de référence */
+.reference-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.reference-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.card-title h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.author {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.category-badge {
+  background: #E8D4C2;
+  color: black;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.reference-details {
+  flex: 1;
+  /* margin-bottom: 1.5rem; */
+}
+
+.reference-details p {
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.view-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.view-btn:hover {
+  opacity: 0.9;
+}
+
+/* État vide */
+.empty-state {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.empty-icon {
+  width: 3rem;
+  height: 3rem;
+  color: var(--text-secondary);
+  margin: 0 auto 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+}
+
+/* Icônes */
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content-layout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+  }
+  
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container {
+    min-width: 100%;
+  }
+  
+  .filter-group {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0.75rem;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .references-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-title {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .category-badge {
+    align-self: flex-start;
+  }
+  
+  /* Responsive pour la modale */
+  .modal-content {
+    margin: 1rem;
+    max-height: 95vh;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+  }
+  
+  .view-btn,
+  .cite-btn {
+    width: 100%;
+  }
+}
+
+/* Ajoutez ces styles À L'EXTÉRIEUR de toute media query, à la fin de votre fichier */
+
+/* Styles pour la modale - CORRIGÉ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+.modal-form {
+  padding: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.form-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.btn-cancel {
+  padding: 0.75rem 1.5rem;
+  background: var(--background);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-cancel:hover {
+  background: #f3f4f6;
+}
+
+.btn-submit {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-submit:hover {
+  opacity: 0.9;
+}
+
+/* Styles pour la modale de citation */
+.citation-content {
+  padding: 1.5rem;
+}
+
+.citation-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.citation-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.citation-item h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.citation-text {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.copy-btn {
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.copy-btn:hover {
+  opacity: 0.9;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.cite-btn {
+  flex: 1;
+  padding: 0.75rem;
+  background: var(--background);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.cite-btn:hover {
+  background: #f3f4f6;
+}
+
+.card-title h3,
+.reference-details p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-title h3 {
+  max-width: 85%;
+}
+
+.reference-details p {
+  max-width: 90%;
+}
+
+/* Styles spécifiques pour la modale de citation */
+.citation-modal .modal-content {
+  max-width: 900px;
+}
+
+.citation-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-title h3 {
+    max-width: 80%;
+  }
+  
+  .reference-details p {
+    max-width: 85%;
+  }
+  
+  .citation-modal .modal-content {
+    max-width: 95vw;
+    margin: 1rem;
+  }
+  
+  .citation-text {
+    font-size: 0.875rem;
+  }
+}
