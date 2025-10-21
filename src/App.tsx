@@ -70,15 +70,16 @@ export default function ReferenceOrganizer() {
   });
 
   const filteredArticles = articles.filter(article => {
-    const matchesType = filterMessageType === "All" || article.messageType === filterMessageType;
-    const matchesSearch = 
-      article.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      article.dataset.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.annotationModel.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.detectionModel.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.author.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesType && matchesSearch;
-  });
+  const matchesType = filterMessageType === "All" || article.messageType === filterMessageType;
+  const matchesSearch = 
+    (article.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+    (article.dataset?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+    (article.annotationModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+    (article.detectionModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+    (article.author?.toLowerCase() || "").includes(searchTerm.toLowerCase());
+  return matchesType && matchesSearch;
+});
+
 
   const handleAddArticle = () => {
     setIsModalOpen(true);
