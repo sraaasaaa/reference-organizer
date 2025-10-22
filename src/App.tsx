@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Search, Plus, BookOpen, Folder, Database, MessageSquare, FileText, Brain, Target, Calendar, X, Quote } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Search, Plus, BookOpen, Folder, Database, MessageSquare, FileText, Brain, Target, Calendar, X, Quote, Filter, ExternalLink } from "lucide-react";
 import "./assets/index.css";
 
 import articlesData from "./data/articles.json";
@@ -17,6 +17,7 @@ interface Article {
   metric: string;
   year: string;
   author: string;
+  downloadUrl: string; // Ajout de l'URL de téléchargement
   citations: {
     apa: string;
     iso690: string;
@@ -50,12 +51,16 @@ const COLLECTIONS: Collection[] = [
 export default function ReferenceOrganizer() {
   const [articles, setArticles] = useState<Article[]>(articlesData as Article[]);
   const [filterMessageType, setFilterMessageType] = useState("All");
+  const [filterYear, setFilterYear] = useState("All");
+  const [filterDataset, setFilterDataset] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
   const [selectedCollection, setSelectedCollection] = useState("1");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCitationModalOpen, setIsCitationModalOpen] = useState(false);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
   const [newArticle, setNewArticle] = useState({
     title: "",
@@ -66,20 +71,53 @@ export default function ReferenceOrganizer() {
     detectionModel: "",
     metric: "",
     year: "",
-    author: ""
+    author: "",
+    downloadUrl: "" // Ajout du champ URL
   });
 
-  const filteredArticles = articles.filter(article => {
-  const matchesType = filterMessageType === "All" || article.messageType === filterMessageType;
-  const matchesSearch = 
-    (article.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
-    (article.dataset?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
-    (article.annotationModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
-    (article.detectionModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
-    (article.author?.toLowerCase() || "").includes(searchTerm.toLowerCase());
-  return matchesType && matchesSearch;
-});
+  // Extraire les années uniques pour le filtre
+  const uniqueYears = useMemo(() => {
+    const years = [...new Set(articles.map(article => article.year))];
+    return ["All", ...years.sort((a, b) => b.localeCompare(a))];
+  }, [articles]);
 
+  // Extraire les datasets uniques pour le filtre
+  const uniqueDatasets = useMemo(() => {
+    const datasets = [...new Set(articles.map(article => article.dataset))];
+    return ["All", ...datasets.sort()];
+  }, [articles]);
+
+  const filteredAndSortedArticles = useMemo(() => {
+    // Filtrage
+    const filtered = articles.filter(article => {
+      const matchesType = filterMessageType === "All" || article.messageType === filterMessageType;
+      const matchesYear = filterYear === "All" || article.year === filterYear;
+      const matchesDataset = filterDataset === "All" || article.dataset === filterDataset;
+      const matchesSearch = 
+        (article.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+        (article.dataset?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+        (article.annotationModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+        (article.detectionModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+        (article.author?.toLowerCase() || "").includes(searchTerm.toLowerCase());
+      return matchesType && matchesYear && matchesDataset && matchesSearch;
+    });
+
+    // Tri
+    switch (sortBy) {
+      case "newest":
+        return [...filtered].sort((a, b) => 
+          b.year.localeCompare(a.year) || a.title.localeCompare(b.title)
+        );
+      case "oldest":
+        return [...filtered].sort((a, b) => 
+          a.year.localeCompare(b.year) || a.title.localeCompare(b.title)
+        );
+      case "title":
+        return [...filtered].sort((a, b) => a.title.localeCompare(b.title));
+      default:
+        return filtered;
+    }
+  }, [articles, filterMessageType, filterYear, filterDataset, searchTerm, sortBy]);
 
   const handleAddArticle = () => {
     setIsModalOpen(true);
@@ -97,7 +135,8 @@ export default function ReferenceOrganizer() {
       detectionModel: "",
       metric: "",
       year: "",
-      author: ""
+      author: "",
+      downloadUrl: ""
     });
   };
 
@@ -136,6 +175,16 @@ export default function ReferenceOrganizer() {
     handleCloseModal();
   };
 
+  const handleViewDetails = (article: Article) => {
+    setSelectedArticle(article);
+    setIsDetailsModalOpen(true);
+  };
+
+  const handleCloseDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedArticle(null);
+  };
+
   const handleCiteArticle = (article: Article) => {
     setSelectedArticle(article);
     setIsCitationModalOpen(true);
@@ -146,6 +195,14 @@ export default function ReferenceOrganizer() {
     setSelectedArticle(null);
   };
 
+  const handleDownloadRedirect = (url: string) => {
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      alert("No download URL available for this article");
+    }
+  };
+
   return (
     <div className="app-container">
       <div className="main-layout">
@@ -154,42 +211,95 @@ export default function ReferenceOrganizer() {
           <p>Manage and organize your research articles</p>
         </header>
 
-        {/* Filtres en haut */}
-        <div className="filters-bar">
-          <div className="search-container">
-            <Search className="search-icon" />
-            <input
-              type="text"
-              placeholder="Search by title, dataset, or models..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
+        <div className="filters-section">
+          <div className="filters-header">
+            <h2>Filters</h2>
           </div>
           
-          <div className="filter-group">
-            <label>Message Type</label>
-            <select 
-              value={filterMessageType} 
-              onChange={(e) => setFilterMessageType(e.target.value)}
-              className="filter-select"
+          {/* Filtres principaux */}
+          <div className="main-filters">
+            <div className="search-container">
+              <Search className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search by title, dataset, or models..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+            </div>
+            
+            <div className="filter-group">
+              <label>Message Type</label>
+              <select 
+                value={filterMessageType} 
+                onChange={(e) => setFilterMessageType(e.target.value)}
+                className="filter-select"
+              >
+                {MESSAGE_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="filter-group">
+              <label>Sort By</label>
+              <select 
+                value={sortBy} 
+                onChange={(e) => setSortBy(e.target.value)}
+                className="filter-select"
+              >
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="title">Title A-Z</option>
+              </select>
+            </div>
+            
+            <button 
+              className="filter-toggle"
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
             >
-              {MESSAGE_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
+              {showAdvancedFilters ? <X className="icon" /> : <Filter className="icon" />}
+              {showAdvancedFilters ? "Hide Filters" : "More Filters"}
+            </button>
           </div>
-          
-          <div className="filter-group">
-            <label>Sort By</label>
-            <select className="filter-select">
-              <option value="newest">Newest First</option>
-              <option value="oldest">Oldest First</option>
-              <option value="title">Title A-Z</option>
-            </select>
-          </div>
+
+          {/* Filtres avancés */}
+          {showAdvancedFilters && (
+            <div className="advanced-filters">
+              <div className="filter-group">
+                <label>Year</label>
+                <select 
+                  value={filterYear} 
+                  onChange={(e) => setFilterYear(e.target.value)}
+                  className="filter-select"
+                >
+                  {uniqueYears.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="filter-group">
+                <label>Dataset</label>
+                <select 
+                  value={filterDataset} 
+                  onChange={(e) => setFilterDataset(e.target.value)}
+                  className="filter-select"
+                >
+                  {uniqueDatasets.map((dataset) => (
+                    <option key={dataset} value={dataset}>
+                      {dataset.length > 30 ? `${dataset.substring(0, 30)}...` : dataset}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="content-layout">
@@ -222,14 +332,14 @@ export default function ReferenceOrganizer() {
           {/* Résultats en cartes */}
           <div className="main-content">
             <div className="content-header">
-              <h2>References ({filteredArticles.length})</h2>
+              <h2>References ({filteredAndSortedArticles.length})</h2>
               <button className="add-reference-btn" onClick={handleAddArticle}>
                 <Plus className="icon" />
                 Add Article
               </button>
             </div>
             
-            {filteredArticles.length === 0 ? (
+            {filteredAndSortedArticles.length === 0 ? (
               <div className="empty-state">
                 <BookOpen className="empty-icon" />
                 <h3>No articles found</h3>
@@ -237,32 +347,34 @@ export default function ReferenceOrganizer() {
               </div>
             ) : (
               <div className="references-grid">
-                {filteredArticles.map((article) => (
+                {filteredAndSortedArticles.map((article) => (
                   <div key={article.id} className="reference-card">
                     <div className="card-header">
                       <div className="card-title">
-                        <h3>{article.title}</h3>
+                        <h3 title={article.title}>{article.title.length > 50 ? `${article.title.substring(0, 50)}...` : article.title}</h3>
                         <span className="category-badge">{article.messageType}</span>
                       </div>
                       <p className="author"><Calendar className="icon inline mr-1" /> {article.year}</p>
                     </div>
                     <div className="card-content">
                       <div className="reference-details">
-                        <p>
-                          <Database className="icon inline mr-1" />
-                          <span className="detail-label">Dataset:</span> {article.dataset}
+                        <p title={article.dataset}>
+                          <span className="detail-label">Dataset:</span> {article.dataset?.length > 40 ? `${article.dataset.substring(0, 40)}...` : article.dataset || "—"}
                         </p>
-                        <p>
-                          <Target className="icon inline mr-1" />
-                          <span className="detail-label">Detection Model:</span> {article.detectionModel}
+                        <p title={article.detectionModel}>
+                          <div className="icon inline mr-1" />
+                          <span className="detail-label">Detection Model:</span> {article.detectionModel?.length > 40 ? `${article.detectionModel.substring(0, 40)}...` : article.detectionModel || "—"}
                         </p>
-                        <p>
-                          <FileText className="icon inline mr-1" />
-                          <span className="detail-label">Author:</span> {article.author}
+                        <p title={article.author}>
+                          <div className="icon inline mr-1" />
+                          <span className="detail-label">Author:</span> {article.author?.length > 40 ? `${article.author.substring(0, 40)}...` : article.author || "—"}
                         </p>
                       </div>
                       <div className="card-actions">
-                        <button className="view-btn">
+                        <button 
+                          className="view-btn"
+                          onClick={() => handleViewDetails(article)}
+                        >
                           <BookOpen className="icon" />
                           View Details
                         </button>
@@ -419,6 +531,19 @@ export default function ReferenceOrganizer() {
                     placeholder="Evaluation metric"
                   />
                 </div>
+                
+                <div className="form-group">
+                  <label htmlFor="downloadUrl">Download URL</label>
+                  <input
+                    type="url"
+                    id="downloadUrl"
+                    name="downloadUrl"
+                    value={newArticle.downloadUrl}
+                    onChange={handleInputChange}
+                    className="form-input"
+                    placeholder="https://example.com/download"
+                  />
+                </div>
               </div>
               
               <div className="modal-actions">
@@ -430,6 +555,79 @@ export default function ReferenceOrganizer() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modale de détails */}
+      {isDetailsModalOpen && selectedArticle && (
+        <div className="modal-overlay">
+          <div className="modal-content details-modal">
+            <div className="modal-header">
+              <h2>Article Details</h2>
+              <button className="modal-close" onClick={handleCloseDetailsModal}>
+                <X className="icon" />
+              </button>
+            </div>
+            
+            <div className="details-content">
+              <div className="detail-section">
+                <h3>{selectedArticle.title}</h3>
+                <div className="detail-meta">
+                  <span className="meta-item">
+                    <Calendar className="icon inline mr-1" />
+                    {selectedArticle.year}
+                  </span>
+                  <span className="meta-item category-badge">
+                    {selectedArticle.messageType}
+                  </span>
+                </div>
+              </div>
+              
+              <div className="detail-section">
+                <h4>Authors</h4>
+                <p>{selectedArticle.author || "No authors listed"}</p>
+              </div>
+              
+              <div className="detail-grid">
+                <div className="detail-item">
+                  <h4>Dataset</h4>
+                  <p>{selectedArticle.dataset || "—"}</p>
+                </div>
+                
+                <div className="detail-item">
+                  <h4>Size</h4>
+                  <p>{selectedArticle.size || "—"}</p>
+                </div>
+                
+                <div className="detail-item">
+                  <h4>Annotation Model</h4>
+                  <p>{selectedArticle.annotationModel || "—"}</p>
+                </div>
+                
+                <div className="detail-item">
+                  <h4>Detection Model</h4>
+                  <p>{selectedArticle.detectionModel || "—"}</p>
+                </div>
+                
+                <div className="detail-item">
+                  <h4>Metric</h4>
+                  <p>{selectedArticle.metric || "—"}</p>
+                </div>
+              </div>
+              
+              <div className="detail-section">
+                <h4>Access</h4>
+                <button 
+                  className="download-btn"
+                  onClick={() => handleDownloadRedirect(selectedArticle.downloadUrl)}
+                  disabled={!selectedArticle.downloadUrl}
+                >
+                  <ExternalLink className="icon" />
+                  Go to Official Download Site
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -9,12 +9,13 @@
     "detectionModel": "RoBERTa-large",
     "metric": "F1: 0.92",
     "year": "2023",
-    "author":"SARHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
+    "author":"Gafà, G., Cutugno, F., & Venuti, M. ",
     "citations": {
       "apa": "Smith, J., & Johnson, A. (2023). Deep Learning for Text Classification. Journal of AI Research, 15(3), 123-145.",
       "iso690": "SMITH, J., JOHNSON, A. Deep Learning for Text Classification [en ligne]. 2023.",
       "mla": "Smith, John, and Alice Johnson. \"Deep Learning for Text Classification.\" Journal of AI Research 15.3 (2023): 123-145."
-    }
+    },
+    "downloadUrl":"https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=EmotivITA&btnG="
   },
   {
     "id": "2",
