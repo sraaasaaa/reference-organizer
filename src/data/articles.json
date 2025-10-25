@@ -1,252 +1,340 @@
 [
-  {
-    "id": "1",
-    "title": "EmotivITA at EVALITA2023: Overview of the Dimensional and Multidimensional Emotion Analysis Task",
-    "datasets": ["EmoBank"],
-    "messageType": "Blogs+lettres+guides",
-    "size": "10,062 phrases",
-    "annotationModel": "VAD",
-    "detectionModel": "Regression, RoBERTa",
-    "metrics": ["Pearson's correlation coefficient","Mean Absolute Error"],
-    "year": "2023",
-    "author": "G Gafà, F Cutugno, M Venuti",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Emotivita+at+EVALITA2023%3A+Overview+of+the+dimensional+and+multidimensional+emotion+analysis+task&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Gafà, G., Cutugno, F., & Venuti, M. (2023, September). Emotivita at EVALITA2023: Overview of the dimensional and multidimensional emotion analysis task. In 8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023 (Vol. 3473). CEUR Workshop Proceedings.",
-      "iso690": "GAFÀ, Giovanni, CUTUGNO, Francesco, et VENUTI, Marco. Emotivita at EVALITA2023: Overview of the dimensional and multidimensional emotion analysis task. In : 8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023. CEUR Workshop Proceedings, 2023.",
-      "mla": "Gafà, Giovanni, Francesco Cutugno, and Marco Venuti. Emotivita at EVALITA2023: Overview of the dimensional and multidimensional emotion analysis task. 8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023. Vol. 3473. CEUR Workshop Proceedings, 2023."
-    }
-  },
-  {
-    "id": "2",
-    "title": "Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD)",
-    "datasets": ["EmoBank", "SSEC", "SemEval 2018 task 1 EC", "WASSA-2017", "SemEval-2017 Task 4 A"],
-    "messageType": "Tweets",
-    "size": "34,733 phrases",
-    "annotationModel": "Mixed",
-    "detectionModel": "BERT",
-    "metrics": ["Accuracy", "F1", "Pearson's correlation coefficient"],
-    "year": "2023",
-    "author": "M El-Haj, R Takanami",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Unifying+Emotion+Analysis+Datasets+using+Valence+Arousal+Dominance+%28VAD%29&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "El-Haj, M., & Takanami, R. (2023, September). Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD). In Proceedings of the 4th Conference on Language, Data and Knowledge (pp. 220-225).",
-      "iso690": "EL-HAJ, Mo et TAKANAMI, Ryutaro. Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD). In : Proceedings of the 4th Conference on Language, Data and Knowledge. 2023. p. 220-225.",
-      "mla": "El-Haj, Mo, and Ryutaro Takanami. \"Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD).\" Proceedings of the 4th Conference on Language, Data and Knowledge. 2023."
-    }
-  },
-  {
-    "id": "3",
-    "title": "Disentangled Variational Autoencoder for Emotion Recognition in Conversations (VAD-VAE)",
-    "datasets": ["IEMOCAP", "MELD", "DailyDialog"],
-    "messageType": "Conversations",
-    "size": "124,000 phrases",
-    "annotationModel": "CNN-LSTM",
-    "detectionModel": "PLM-based encoder-decoder + Variational AutoEncoder + Disentangled VAD features",
-    "metrics": ["Weighted-F1", "Accuracy", "Micro-F1"],
-    "year": "2023",
-    "author": "K Yang, T Zhang, S Ananiadou",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Disentangled+Variational+Autoencoder+for+Emotion+Recognition+in+Conversations+%28VAD-VAE%29&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Yang, K., Zhang, T., & Ananiadou, S. (2023). Disentangled variational autoencoder for emotion recognition in conversations. IEEE Transactions on Affective Computing, 15(2), 508-518.",
-      "iso690": "YANG, Kailai, ZHANG, Tianlin, et ANANIADOU, Sophia. Disentangled variational autoencoder for emotion recognition in conversations. IEEE Transactions on Affective Computing, 2023, vol. 15, no 2, p. 508-518.",
-      "mla": "Yang, Kailai, Tianlin Zhang, and Sophia Ananiadou. \"Disentangled variational autoencoder for emotion recognition in conversations.\" IEEE Transactions on Affective Computing 15.2 (2023): 508-518."
-    }
-  },
-  {
-    "id": "4",
-    "title": "VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition",
-    "datasets": ["GoEmotions","Empathetic Dialogues"],
-    "messageType": "Reddit Comments",
-    "size": "82.850 sentences",
-    "annotationModel": "28 emotions/ 32emotions",
-    "detectionModel": "BERT with external knowledge",
-    "metrics": ["Macro-F1"],
-    "year": "2025",
-    "author": "S Chen, C Li, X Zeng",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=VAD+Emotion+Distribution+Augmented+BERT+for+Fine-Grained+Emotion+Recognition&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Chen, S., Li, C., & Zeng, X. (2025). VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition. IAENG International Journal of Computer Science, 52(9).",
-      "iso690": "CHEN, Sufen, LI, Chunyang, et ZENG, Xueqiang. VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition. IAENG International Journal of Computer Science, 2025, vol. 52, no 9.",
-      "mla": "Chen, Sufen, Chunyang Li, and Xueqiang Zeng. \"VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition.\" IAENG International Journal of Computer Science 52.9 (2025)."
-    }
-  },
-  {
-    "id": "5",
-    "title": "Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning",
-    "datasets": ["Alm"],
-    "messageType": "Stories",
-    "size": "15,000 sentences",
-    "annotationModel": "8 emotions",
-    "detectionModel": "DeBERTAv3 + weakly-supervised learning ",
-    "metrics": ["MSE","Concordance correlation coefficient (CCC)"],
-    "year": "2024",
-    "author": "L Christ, S Amiriparian, M Milling, I Aslan, BW Schuller",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Modeling+Emotional+Trajectories+in+Written+Stories+Utilizing+Transformers+and+Weakly-Supervised+Learning&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Christ, L., Amiriparian, S., Milling, M., Aslan, I., & Schuller, B. W. (2024). Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning. arXiv preprint arXiv:2406.02251.",
-      "iso690": "CHRIST, Lukas, AMIRIPARIAN, Shahin, MILLING, Manuel, et al. Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning. arXiv preprint arXiv:2406.02251, 2024.",
-      "mla": "Christ, Lukas, et al. \"Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning.\" arXiv preprint arXiv:2406.02251 (2024)."
-    }
-  },
-  {
-    "id": "6",
-    "title": "Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis",
-    "datasets": ["AAID"],
-    "messageType": "Reddit Comments",
-    "size": "234,000 sentences",
-    "annotationModel": "Ekman/Plutchik",
-    "detectionModel": "Classification",
-    "metrics": ["Pearson's correlation coefficient", "Accuracy" , "Macro-F1"],
-    "year": "2024",
-    "author": "Z Liu, K Yang, Q Xie, T Zhang, S Ananiadou",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=EmoLLMs%3A+A+series+of+emotional+large+language+models+and+annotation+tools+for+comprehensive+affective+analysis&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Liu, Z., Yang, K., Xie, Q., Zhang, T., & Ananiadou, S. (2024, August). Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (pp. 5487-5496).",
-      "iso690": "LIU, Zhiwei, YANG, Kailai, XIE, Qianqian, et al. Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis. In : Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining. 2024. p. 5487-5496.",
-      "mla": "Liu, Zhiwei, et al. \"Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis.\" Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining. 2024."
-    }
-  },
     {
-    "id": "7",
-    "title": "MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection",
-    "datasets": ["Track A SemEval Task 11"],
-    "messageType": "-",
-    "size": "5,651 sentences",
-    "annotationModel": "5 emotions : Anger, Fear, Joy, Sadness & Surprise",
-    "detectionModel": "RoBERTa-large + EmoT5",
-    "metrics": ["Macro-F1" , "Micro-F1"],
-    "year": "2025",
-    "author": "M Afshari, R Frost, S Kissel, K Johnson",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=MRS+at+SemEval-2025+Task+11%3A+A+Hybrid+Approach+for+Bridging+the+Gap+in+Text-Based+Emotion+Detection&btnG=",
-    "collectionId": "3",
-    "citations": {
-      "apa": "Afshari, M., Frost, R., Kissel, S., & Johnson, K. (2025, July). MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection. In Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025) (pp. 584-589).",
-      "iso690": "AFSHARI, Milad, FROST, Richard, KISSEL, Samantha, et al. MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection. In : Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025. p. 584-589.",
-      "mla": "Afshari, Milad, et al. \"MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection.\" Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025."
+        "id": "1",
+        "title": "EmotivITA at EVALITA2023: Overview of the Dimensional and Multidimensional Emotion Analysis Task",
+        "datasets": [
+            "EmoBank"
+        ],
+        "messageType": "Blogs+lettres+guides",
+        "size": "10,062 phrases",
+        "annotationModel": "VAD",
+        "detectionModel": "Regression, RoBERTa",
+        "metrics": [
+            "Pearson's correlation coefficient",
+            "Mean Absolute Error"
+        ],
+        "year": "2023",
+        "author": "G Gafà, F Cutugno, M Venuti",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Emotivita+at+EVALITA2023%3A+Overview+of+the+dimensional+and+multidimensional+emotion+analysis+task&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Gafà, G., Cutugno, F., & Venuti, M. (2023, September). Emotivita at EVALITA2023: Overview of the dimensional and multidimensional emotion analysis task. In 8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023 (Vol. 3473). CEUR Workshop Proceedings.",
+            "iso690": "GAFÀ, Giovanni, CUTUGNO, Francesco, et VENUTI, Marco. Emotivita at EVALITA2023: Overview of the dimensional and multidimensional emotion analysis task. In : 8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023. CEUR Workshop Proceedings, 2023.",
+            "mla": "Gafà, Giovanni, Francesco Cutugno, and Marco Venuti. Emotivita at EVALITA2023: Overview of the dimensional and multidimensional emotion analysis task. 8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023. Vol. 3473. CEUR Workshop Proceedings, 2023.",
+            "bibtex": "@inproceedings{gafa2023emotivita,\n  title={Emotivita at EVALITA2023: Overview of the Dimensional and Multidimensional Emotion Analysis Task},\n  author={Gaf{\\`a}, Giovanni and Cutugno, Francesco and Venuti, Marco},\n  booktitle={8th Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop, EVALITA 2023},\n  volume={3473},\n  year={2023},\n  organization={CEUR Workshop Proceedings}\n}"
+        }
+    },
+    {
+        "id": "2",
+        "title": "Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD)",
+        "datasets": [
+            "EmoBank",
+            "SSEC",
+            "SemEval 2018 task 1 EC",
+            "WASSA-2017",
+            "SemEval-2017 Task 4 A"
+        ],
+        "messageType": "Tweets",
+        "size": "34,733 phrases",
+        "annotationModel": "Mixed",
+        "detectionModel": "BERT",
+        "metrics": [
+            "Accuracy",
+            "F1",
+            "Pearson's correlation coefficient"
+        ],
+        "year": "2023",
+        "author": "M El-Haj, R Takanami",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Unifying+Emotion+Analysis+Datasets+using+Valence+Arousal+Dominance+%28VAD%29&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "El-Haj, M., & Takanami, R. (2023, September). Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD). In Proceedings of the 4th Conference on Language, Data and Knowledge (pp. 220-225).",
+            "iso690": "EL-HAJ, Mo et TAKANAMI, Ryutaro. Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD). In : Proceedings of the 4th Conference on Language, Data and Knowledge. 2023. p. 220-225.",
+            "mla": "El-Haj, Mo, and Ryutaro Takanami. \"Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD).\" Proceedings of the 4th Conference on Language, Data and Knowledge. 2023.",
+            "bibtex": "@inproceedings{el2023unifying, \n title={Unifying Emotion Analysis Datasets using Valence Arousal Dominance (VAD)},\n author={El-Haj, Mo and Takanami, Ryutaro},\n booktitle={Proceedings of the 4th Conference on Language, Data and Knowledge},\n pages={220--225},\n year={2023}\n}"
+        }
+    },
+    {
+        "id": "3",
+        "title": "Disentangled Variational Autoencoder for Emotion Recognition in Conversations (VAD-VAE)",
+        "datasets": [
+            "IEMOCAP",
+            "MELD",
+            "DailyDialog"
+        ],
+        "messageType": "Conversations",
+        "size": "124,000 phrases",
+        "annotationModel": "CNN-LSTM",
+        "detectionModel": "PLM-based encoder-decoder + Variational AutoEncoder + Disentangled VAD features",
+        "metrics": [
+            "Weighted-F1",
+            "Accuracy",
+            "Micro-F1"
+        ],
+        "year": "2023",
+        "author": "K Yang, T Zhang, S Ananiadou",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Disentangled+Variational+Autoencoder+for+Emotion+Recognition+in+Conversations+%28VAD-VAE%29&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Yang, K., Zhang, T., & Ananiadou, S. (2023). Disentangled variational autoencoder for emotion recognition in conversations. IEEE Transactions on Affective Computing, 15(2), 508-518.",
+            "iso690": "YANG, Kailai, ZHANG, Tianlin, et ANANIADOU, Sophia. Disentangled variational autoencoder for emotion recognition in conversations. IEEE Transactions on Affective Computing, 2023, vol. 15, no 2, p. 508-518.",
+            "mla": "Yang, Kailai, Tianlin Zhang, and Sophia Ananiadou. \"Disentangled variational autoencoder for emotion recognition in conversations.\" IEEE Transactions on Affective Computing 15.2 (2023): 508-518.",
+            "bibtex": "@article{yang2023disentangled,\n title={Disentangled variational autoencoder for emotion recognition in conversations},\n author={Yang, Kailai and Zhang, Tianlin and Ananiadou, Sophia},\n journal={IEEE Transactions on Affective Computing},\n volume={15},\n number={2},\n pages={508--518},\n year={2023},\n publisher={IEEE}\n}"
+        }
+    },
+    {
+        "id": "4",
+        "title": "VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition",
+        "datasets": [
+            "GoEmotions",
+            "Empathetic Dialogues"
+        ],
+        "messageType": "Reddit Comments",
+        "size": "82.850 sentences",
+        "annotationModel": "28 emotions/ 32emotions",
+        "detectionModel": "BERT with external knowledge",
+        "metrics": [
+            "Macro-F1"
+        ],
+        "year": "2025",
+        "author": "S Chen, C Li, X Zeng",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=VAD+Emotion+Distribution+Augmented+BERT+for+Fine-Grained+Emotion+Recognition&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Chen, S., Li, C., & Zeng, X. (2025). VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition. IAENG International Journal of Computer Science, 52(9).",
+            "iso690": "CHEN, Sufen, LI, Chunyang, et ZENG, Xueqiang. VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition. IAENG International Journal of Computer Science, 2025, vol. 52, no 9.",
+            "mla": "Chen, Sufen, Chunyang Li, and Xueqiang Zeng. \"VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition.\" IAENG International Journal of Computer Science 52.9 (2025).",
+            "bibtex": "@article{chen2025vad,\n title={VAD Emotion Distribution Augmented BERT for Fine-Grained Emotion Recognition.},\n author={Chen, Sufen and Li, Chunyang and Zeng, Xueqiang},\n journal={IAENG International Journal of Computer Science},\n volume={52},\n number={9},\n year={2025}\n }"
+        }
+    },
+    {
+        "id": "5",
+        "title": "Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning",
+        "datasets": [
+            "Alm"
+        ],
+        "messageType": "Stories",
+        "size": "15,000 sentences",
+        "annotationModel": "8 emotions",
+        "detectionModel": "DeBERTAv3 + weakly-supervised learning ",
+        "metrics": [
+            "MSE",
+            "Concordance correlation coefficient (CCC)"
+        ],
+        "year": "2024",
+        "author": "L Christ, S Amiriparian, M Milling, I Aslan, BW Schuller",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Modeling+Emotional+Trajectories+in+Written+Stories+Utilizing+Transformers+and+Weakly-Supervised+Learning&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Christ, L., Amiriparian, S., Milling, M., Aslan, I., & Schuller, B. W. (2024). Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning. arXiv preprint arXiv:2406.02251.",
+            "iso690": "CHRIST, Lukas, AMIRIPARIAN, Shahin, MILLING, Manuel, et al. Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning. arXiv preprint arXiv:2406.02251, 2024.",
+            "mla": "Christ, Lukas, et al. \"Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning.\" arXiv preprint arXiv:2406.02251 (2024).",
+            "bibtex": "@article{christ2024modeling,\n title={Modeling Emotional Trajectories in Written Stories Utilizing Transformers and Weakly-Supervised Learning},\n author={Christ, Lukas and Amiriparian, Shahin and Milling, Manuel and Aslan, Ilhan and Schuller, Bj{\"o}rn W},\n journal={arXiv preprint arXiv:2406.02251},\n year={2024}\n }"
+        }
+    },
+    {
+        "id": "6",
+        "title": "Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis",
+        "datasets": [
+            "AAID"
+        ],
+        "messageType": "Reddit Comments",
+        "size": "234,000 sentences",
+        "annotationModel": "Ekman/Plutchik",
+        "detectionModel": "Classification",
+        "metrics": [
+            "Pearson's correlation coefficient",
+            "Accuracy",
+            "Macro-F1"
+        ],
+        "year": "2024",
+        "author": "Z Liu, K Yang, Q Xie, T Zhang, S Ananiadou",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=EmoLLMs%3A+A+series+of+emotional+large+language+models+and+annotation+tools+for+comprehensive+affective+analysis&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Liu, Z., Yang, K., Xie, Q., Zhang, T., & Ananiadou, S. (2024, August). Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (pp. 5487-5496).",
+            "iso690": "LIU, Zhiwei, YANG, Kailai, XIE, Qianqian, et al. Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis. In : Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining. 2024. p. 5487-5496.",
+            "mla": "Liu, Zhiwei, et al. \"Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis.\" Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining. 2024.",
+            "bibtex": "@inproceedings{liu2024emollms,\n title={Emollms: A series of emotional large language models and annotation tools for comprehensive affective analysis},\n author={Liu, Zhiwei and Yang, Kailai and Xie, Qianqian and Zhang, Tianlin and Ananiadou, Sophia},\n booktitle={Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining},\n pages={5487--5496},\n year={2024}\n }"
+        }
+    },
+    {
+        "id": "7",
+        "title": "MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection",
+        "datasets": [
+            "Track A SemEval Task 11"
+        ],
+        "messageType": "-",
+        "size": "5,651 sentences",
+        "annotationModel": "5 emotions : Anger, Fear, Joy, Sadness & Surprise",
+        "detectionModel": "RoBERTa-large + EmoT5",
+        "metrics": [
+            "Macro-F1",
+            "Micro-F1"
+        ],
+        "year": "2025",
+        "author": "M Afshari, R Frost, S Kissel, K Johnson",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=MRS+at+SemEval-2025+Task+11%3A+A+Hybrid+Approach+for+Bridging+the+Gap+in+Text-Based+Emotion+Detection&btnG=",
+        "collectionId": "3",
+        "citations": {
+            "apa": "Afshari, M., Frost, R., Kissel, S., & Johnson, K. (2025, July). MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection. In Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025) (pp. 584-589).",
+            "iso690": "AFSHARI, Milad, FROST, Richard, KISSEL, Samantha, et al. MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection. In : Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025. p. 584-589.",
+            "mla": "Afshari, Milad, et al. \"MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection.\" Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025.",
+            "bibtex": "@inproceedings{afshari2025mrs,\n title={MRS at SemEval-2025 Task 11: A Hybrid Approach for Bridging the Gap in Text-Based Emotion Detection},\n author={Afshari, Milad and Frost, Richard and Kissel, Samantha and Johnson, Kristen},\n booktitle={Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025)},\n pages={584--589},\n year={2025}\n }"
+        }
+    },
+    {
+        "id": "8",
+        "title": "'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text",
+        "datasets": [
+            "GoEmotions"
+        ],
+        "messageType": "Reddit Comments",
+        "size": "58,000 sentences",
+        "annotationModel": "28 labels",
+        "detectionModel": "GPT 3.5, GPT 4, LLaMa, Mistral, Mixtral, Gemma, Gemini, Phi-3",
+        "metrics": [
+            "Macro-F1"
+        ],
+        "year": "2025",
+        "author": "F Lecourt, M Croitoru, K Todorov",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=%22Only+ChatGPT+gets+me%22%3A+An+Empirical+Analysis+of+GPT+versus+other+Large+Language+Models+for+Emotion+Detection+in+Text&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Lecourt, F., Croitoru, M., & Todorov, K. (2025, May). 'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text. In Companion Proceedings of the ACM on Web Conference 2025 (pp. 2603-2611).",
+            "iso690": "LECOURT, Florian, CROITORU, Madalina, et TODOROV, Konstantin. 'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text. In : Companion Proceedings of the ACM on Web Conference 2025. 2025. p. 2603-2611.",
+            "mla": "Lecourt, Florian, Madalina Croitoru, and Konstantin Todorov. \"'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text.\" Companion Proceedings of the ACM on Web Conference 2025. 2025.",
+            "bibtex": "@inproceedings{lecourt2025only,\n title={'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text},\n author={Lecourt, Florian and Croitoru, Madalina and Todorov, Konstantin},\n booktitle={Companion Proceedings of the ACM on Web Conference 2025},\n pages={2603--2611},\n year={2025}\n }"
+        }
+    },
+    {
+        "id": "9",
+        "title": "UTBNLPatSemeval-2025 Task 11: Predicting Emotion Intensity with BERTandVAD-Informed Attention.",
+        "datasets": [
+            "SemEval Track B"
+        ],
+        "messageType": "-",
+        "size": "-",
+        "annotationModel": "5 emotions : Anger, Fear, Joy, Sadness & Suprise with intensities 0-3",
+        "detectionModel": "Fine-tuning BERT model and conversion of VAD scores to emotion intensities",
+        "metrics": [
+            "Pearson's correlation coefficient",
+            "Accuracy",
+            "Macro-F1"
+        ],
+        "year": "2025",
+        "author": "M Moreno, J Martinez-Santos, E Puertas",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=UTBNLPatSemeval-2025+Task+11%3A+Predicting+Emotion+Intensity+with+BERTandVAD-Informed+Attention.&btnG=",
+        "collectionId": "3",
+        "citations": {
+            "apa": "Moreno, M., Martinez-Santos, J., & Puertas, E. (2025, July). UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention. In Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025) (pp. 1217-1222).",
+            "iso690": "MORENO, Melissa, MARTINEZ-SANTOS, Juan, et PUERTAS, Edwin. UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention. In : Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025. p. 1217-1222.",
+            "mla": "Moreno, Melissa, Juan Martinez-Santos, and Edwin Puertas. \"UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention.\" Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025.",
+            "bibtex": "@inproceedings{moreno2025utbnlp, \n title={UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention.},\n author={Moreno, Melissa and Martinez-Santos, Juan and Puertas, Edwin},\n booktitle={Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025)},\n pages={1217--1222},\n year={2025}\n }"
+        }
+    },
+    {
+        "id": "10",
+        "title": "Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated Dataset and Baseline Models",
+        "datasets": [
+            "AIER"
+        ],
+        "messageType": "-",
+        "size": "5,266 sentences",
+        "annotationModel": "Ekman",
+        "detectionModel": "LLMs, Bert-based models, ML models, DL models",
+        "metrics": [
+            "Accuracy",
+            "Precision",
+            "Recall",
+            "F1-score"
+        ],
+        "year": "2025",
+        "author": "H Boutouta, A Lakhfif, F Senator, C Mediani",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Enhancement+of+Implicit+Emotion+Recognition+in+Arabic+Text%3A+Annotated+Dataset+and+Baseline+Models&btnG=",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Boutouta, H., Lakhfif, A., Senator, F., & Mediani, C. (2025). Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models. IEEE Access.",
+            "iso690": "BOUTOUTA, Hanane, LAKHFIF, Abdelaziz, SENATOR, Ferial, et al. Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models. IEEE Access, 2025.",
+            "mla": "Boutouta, Hanane, et al. \"Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models.\" IEEE Access (2025).",
+            "bibtex": "@article{boutouta2025enhancement,\n title={Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models},\n author={Boutouta, Hanane and Lakhfif, Abdelaziz and Senator, Ferial and Mediani, Chahrazed},\n journal={IEEE Access},\n year={2025},\n publisher={IEEE}\n }"
+        }
+    },
+    {
+        "id": "11",
+        "title": "Challenges and Opportunities of Text-Based Emotion Detection: A Survey",
+        "datasets": [
+            "Various (survey)"
+        ],
+        "messageType": "-",
+        "size": "-",
+        "annotationModel": "-",
+        "detectionModel": "-",
+        "metrics": [
+            "Various performance metrics surveyed"
+        ],
+        "year": "2024",
+        "author": "A Al Maruf, F Khanam, Md M Haque, Z Masud Jiyad, M F Mridha, Z Aung",
+        "downloadUrl": "https://doi.org/10.1109/ACCESS.2024.3356357",
+        "collectionId": "2",
+        "citations": {
+            "apa": "Al Maruf, A., Khanam, F., Haque, Md M., Jiyad, Z. M., Mridha, M. F., & Aung, Z. (2024). Challenges and Opportunities of Text-Based Emotion Detection: A Survey. IEEE Access, 12, 18416-18450. https://doi.org/10.1109/ACCESS.2024.3356357",
+            "iso690": "AL MARUF, Abdullah, KHANAM, Fahima, HAQUE, Md Mahmudul, et al. Challenges and Opportunities of Text-Based Emotion Detection: A Survey. IEEE Access, 2024, vol. 12, p. 18416-18450.",
+            "mla": "Al Maruf, Abdullah, et al. “Challenges and Opportunities of Text-Based Emotion Detection: A Survey.” IEEE Access, vol. 12, 2024, pp. 18416-18450.",
+            "bibtex": "@article{al2024challenges,\n title={Challenges and opportunities of text-based emotion detection: A survey},\n author={Al Maruf, Abdullah and Khanam, Fahima and Haque, Md Mahmudul and Jiyad, Zakaria Masud and Mridha, Muhammad Firoz and Aung, Zeyar},\n journal={IEEE access},\n volume={12},\n pages={18416--18450},\n year={2024},\n publisher={IEEE}\n }"
+        }
+    },
+    {
+        "id": "12",
+        "title": "EMOBANK: Studying the Impact of Annotation Perspective and Representation Format on Dimensional Emotion Analysis",
+        "datasets": [
+            "MASC",
+            "SE07"
+        ],
+        "messageType": "Blogs+lettres+guides",
+        "size": "10,062 sentences (after filtering improbable scores)",
+        "annotationModel": "VAD (Valence, Arousal, Dominance) using SAM scale (1–5)",
+        "detectionModel": "k-Nearest Neighbor (KNN) for mapping categorical emotions to VAD scores",
+        "metrics": [
+            "Pearson’s correlation coefficient",
+            "Mean Absolute Error (MAE)",
+            "Sentence-Wise Error"
+        ],
+        "year": "2022",
+        "author": "S Buechel, U Hahn",
+        "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=EMOBANK%3A+Studying+the+Impact+of+Annotation+Perspective+and+Representation+Format+on+Dimensional+Emotion+Analysis&btnG=",
+        "collectionId": "3",
+        "citations": {
+            "apa": "Buechel, S., & Hahn, U. (2022). Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis. arXiv preprint arXiv:2205.01996.",
+            "iso690": "BUECHEL, Sven et HAHN, Udo. Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis. arXiv preprint arXiv:2205.01996, 2022.",
+            "mla": "Buechel, Sven, and Udo Hahn. \"Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis.\" arXiv preprint arXiv:2205.01996 (2022).",
+            "bibtex": "@article{buechel2022emobank,\n title={Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis},\n author={Buechel, Sven and Hahn, Udo},\n journal={arXiv preprint arXiv:2205.01996},\n year={2022}\n }"
+        }
+    },
+    {
+        "id": "13",
+        "title": "VAD-assisted Multitask Transformer Framework for Emotion Recognition and Intensity Prediction on Suicide Notes",
+        "datasets": [
+            "CEASEv2.0"
+        ],
+        "messageType": "Suicide notes",
+        "size": "4,932 sentences",
+        "annotationModel": "15 emotions",
+        "detectionModel": "Multitask Transformer integrating BERT and VAD-assisted attention",
+        "metrics": [
+            "m-F1",
+            "s-F1",
+            "Mean Recall"
+        ],
+        "year": "2022",
+        "author": "S Ghosh, A Ekbal, P Bhattacharyya",
+        "downloadUrl": "https://www-sciencedirect-com.sndl1.arn.dz/search?qs=VAD-assisted+multitask+transformer+framework+for+emotion+recognition+and+intensity+prediction+on+suicide+notes",
+        "collectionId": "1",
+        "citations": {
+            "apa": "Ghosh, S., Ekbal, A., & Bhattacharyya, P. (2023). VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes. Information Processing & Management, 60(2), 103234.",
+            "iso690": "GHOSH, Soumitra, EKBAL, Asif, et BHATTACHARYYA, Pushpak. VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes. Information Processing & Management, 2023, vol. 60, no 2, p. 103234.",
+            "mla": "Ghosh, Soumitra, Asif Ekbal, and Pushpak Bhattacharyya. \"VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes.\" Information Processing & Management 60.2 (2023): 103234.",
+            "bibtex": "@article{ghosh2023vad,\n title={VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes},\n author={Ghosh, Soumitra and Ekbal, Asif and Bhattacharyya, Pushpak},\n journal={Information Processing /& Management},\n volume={60},\n number={2},\n pages={103234},\n year={2023},\n publisher={Elsevier}\n }"
+        }
     }
-  },
-  {
-    "id": "8",
-    "title": "'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text",
-    "datasets": ["GoEmotions"],
-    "messageType": "Reddit Comments",
-    "size": "58,000 sentences",
-    "annotationModel": "28 labels",
-    "detectionModel": "GPT 3.5, GPT 4, LLaMa, Mistral, Mixtral, Gemma, Gemini, Phi-3",
-    "metrics": ["Macro-F1"],
-    "year": "2025",
-    "author": "F Lecourt, M Croitoru, K Todorov",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=%22Only+ChatGPT+gets+me%22%3A+An+Empirical+Analysis+of+GPT+versus+other+Large+Language+Models+for+Emotion+Detection+in+Text&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Lecourt, F., Croitoru, M., & Todorov, K. (2025, May). 'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text. In Companion Proceedings of the ACM on Web Conference 2025 (pp. 2603-2611).",
-      "iso690": "LECOURT, Florian, CROITORU, Madalina, et TODOROV, Konstantin. 'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text. In : Companion Proceedings of the ACM on Web Conference 2025. 2025. p. 2603-2611.",
-      "mla": "Lecourt, Florian, Madalina Croitoru, and Konstantin Todorov. \"'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text.\" Companion Proceedings of the ACM on Web Conference 2025. 2025."
-    }
-  },
-  {    "id": "9",
-    "title": "UTBNLPatSemeval-2025 Task 11: Predicting Emotion Intensity with BERTandVAD-Informed Attention.",
-    "datasets": ["SemEval Track B"],
-    "messageType": "-",
-    "size": "-",
-    "annotationModel": "5 emotions : Anger, Fear, Joy, Sadness & Suprise with intensities 0-3",
-    "detectionModel": "Fine-tuning BERT model and conversion of VAD scores to emotion intensities",
-    "metrics": ["Pearson's correlation coefficient", "Accuracy" , "Macro-F1"],
-    "year": "2025",
-    "author": "M Moreno, J Martinez-Santos, E Puertas",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=UTBNLPatSemeval-2025+Task+11%3A+Predicting+Emotion+Intensity+with+BERTandVAD-Informed+Attention.&btnG=",
-    "collectionId": "3",
-    "citations": {
-      "apa": "Moreno, M., Martinez-Santos, J., & Puertas, E. (2025, July). UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention. In Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025) (pp. 1217-1222).",
-      "iso690": "MORENO, Melissa, MARTINEZ-SANTOS, Juan, et PUERTAS, Edwin. UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention. In : Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025. p. 1217-1222.",
-      "mla": "Moreno, Melissa, Juan Martinez-Santos, and Edwin Puertas. \"UTBNLP at Semeval-2025 Task 11: Predicting Emotion Intensity with BERT and VAD-Informed Attention.\" Proceedings of the 19th International Workshop on Semantic Evaluation (SemEval-2025). 2025."
-    }
-  },
-  {    
-    "id": "10",
-    "title": "Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated Dataset and Baseline Models",
-    "datasets": ["AIER"],
-    "messageType": "-",
-    "size": "5,266 sentences",
-    "annotationModel": "Ekman",
-    "detectionModel": "LLMs, Bert-based models, ML models, DL models",
-    "metrics": ["Accuracy", "Precision", "Recall", "F1-score"],
-    "year": "2025",
-    "author": "H Boutouta, A Lakhfif, F Senator, C Mediani",
-    "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=Enhancement+of+Implicit+Emotion+Recognition+in+Arabic+Text%3A+Annotated+Dataset+and+Baseline+Models&btnG=",
-    "collectionId": "1",
-    "citations": {
-      "apa": "Boutouta, H., Lakhfif, A., Senator, F., & Mediani, C. (2025). Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models. IEEE Access.",
-      "iso690": "BOUTOUTA, Hanane, LAKHFIF, Abdelaziz, SENATOR, Ferial, et al. Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models. IEEE Access, 2025.",
-      "mla": "Boutouta, Hanane, et al. \"Enhancement of Implicit Emotion Recognition in Arabic Text: Annotated dataset and baseline models.\" IEEE Access (2025)."
-    }
-  },
-  {
-  "id": "11",
-  "title": "Challenges and Opportunities of Text-Based Emotion Detection: A Survey",
-  "datasets": ["Various (survey)"],
-  "messageType": "-",
-  "size": "-",
-  "annotationModel": "-",
-  "detectionModel": "-",
-  "metrics": ["Various performance metrics surveyed"],
-  "year": "2024",
-  "author": "A Al Maruf, F Khanam, Md M Haque, Z Masud Jiyad, M F Mridha, Z Aung",
-  "downloadUrl": "https://doi.org/10.1109/ACCESS.2024.3356357",
-  "collectionId": "2",
-  "citations": {
-    "apa": "Al Maruf, A., Khanam, F., Haque, Md M., Jiyad, Z. M., Mridha, M. F., & Aung, Z. (2024). Challenges and Opportunities of Text-Based Emotion Detection: A Survey. IEEE Access, 12, 18416-18450. https://doi.org/10.1109/ACCESS.2024.3356357",
-    "iso690": "AL MARUF, Abdullah, KHANAM, Fahima, HAQUE, Md Mahmudul, et al. Challenges and Opportunities of Text-Based Emotion Detection: A Survey. IEEE Access, 2024, vol. 12, p. 18416-18450.",
-    "mla": "Al Maruf, Abdullah, et al. “Challenges and Opportunities of Text-Based Emotion Detection: A Survey.” IEEE Access, vol. 12, 2024, pp. 18416-18450."
-  }
-},
-{
-  "id": "12",
-  "title": "EMOBANK: Studying the Impact of Annotation Perspective and Representation Format on Dimensional Emotion Analysis",
-  "datasets": ["MASC", "SE07"],
-  "messageType": "Blogs+lettres+guides",
-  "size": "10,062 sentences (after filtering improbable scores)",
-  "annotationModel": "VAD (Valence, Arousal, Dominance) using SAM scale (1–5)",
-  "detectionModel": "k-Nearest Neighbor (KNN) for mapping categorical emotions to VAD scores",
-  "metrics": ["Pearson’s correlation coefficient", "Mean Absolute Error (MAE)", "Sentence-Wise Error"],
-  "year": "2022",
-  "author": "S Buechel, U Hahn",
-  "downloadUrl": "https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=EMOBANK%3A+Studying+the+Impact+of+Annotation+Perspective+and+Representation+Format+on+Dimensional+Emotion+Analysis&btnG=",
-  "collectionId": "3",
-  "citations": {
-    "apa": "Buechel, S., & Hahn, U. (2022). Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis. arXiv preprint arXiv:2205.01996.",
-    "iso690": "BUECHEL, Sven et HAHN, Udo. Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis. arXiv preprint arXiv:2205.01996, 2022.",
-    "mla": "Buechel, Sven, and Udo Hahn. \"Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis.\" arXiv preprint arXiv:2205.01996 (2022)."
-  }
-},
-{
-  "id": "13",
-  "title": "VAD-assisted Multitask Transformer Framework for Emotion Recognition and Intensity Prediction on Suicide Notes",
-  "datasets": ["CEASEv2.0"],
-  "messageType": "Suicide notes",
-  "size": "4,932 sentences",
-  "annotationModel": "15 emotions",
-  "detectionModel": "Multitask Transformer integrating BERT and VAD-assisted attention",
-  "metrics": ["m-F1", "s-F1","Mean Recall"],
-  "year": "2022",
-  "author": "S Ghosh, A Ekbal, P Bhattacharyya",
-  "downloadUrl": "https://www-sciencedirect-com.sndl1.arn.dz/search?qs=VAD-assisted+multitask+transformer+framework+for+emotion+recognition+and+intensity+prediction+on+suicide+notes",
-  "collectionId": "1",
-  "citations": {
-    "apa": "Ghosh, S., Ekbal, A., & Bhattacharyya, P. (2023). VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes. Information Processing & Management, 60(2), 103234.",
-    "iso690": "GHOSH, Soumitra, EKBAL, Asif, et BHATTACHARYYA, Pushpak. VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes. Information Processing & Management, 2023, vol. 60, no 2, p. 103234.",
-    "mla": "Ghosh, Soumitra, Asif Ekbal, and Pushpak Bhattacharyya. \"VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes.\" Information Processing & Management 60.2 (2023): 103234."
-  }
-}
-
-
-
-
 ]

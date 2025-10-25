@@ -23,6 +23,7 @@ interface Article {
     apa: string;
     iso690: string;
     mla: string;
+    bibtex: string;
   };
 }
 
@@ -59,7 +60,7 @@ const INITIAL_COLLECTIONS: Omit<Collection, 'count'>[] = [
 
 export default function AdminReferenceOrganizer() {
   const [articles, setArticles] = useState<Article[]>(articlesData as Article[]);
-  const [collections, setCollections] = useState<Collection[]>(() => 
+  const [collections, setCollections] = useState<Collection[]>(() =>
     INITIAL_COLLECTIONS.map(collection => ({
       ...collection,
       count: articlesData.filter((article: any) => article.collectionId === collection.id).length
@@ -115,8 +116,8 @@ export default function AdminReferenceOrganizer() {
       const matchesType = filterMessageType === "All" || article.messageType === filterMessageType;
       const matchesYear = filterYear === "All" || article.year === filterYear;
       const matchesDataset = filterDataset === "All" || article.datasets.includes(filterDataset);
-      const matchesSearch = 
-        (article.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
+      const matchesSearch =
+        (article.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
         article.datasets.some(dataset => dataset.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (article.annotationModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
         (article.detectionModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
@@ -128,11 +129,11 @@ export default function AdminReferenceOrganizer() {
 
     switch (sortBy) {
       case "newest":
-        return [...filtered].sort((a, b) => 
+        return [...filtered].sort((a, b) =>
           b.year.localeCompare(a.year) || a.title.localeCompare(b.title)
         );
       case "oldest":
-        return [...filtered].sort((a, b) => 
+        return [...filtered].sort((a, b) =>
           a.year.localeCompare(b.year) || a.title.localeCompare(b.title)
         );
       case "title":
@@ -173,15 +174,15 @@ export default function AdminReferenceOrganizer() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!newArticle.title || !newArticle.datasets || !newArticle.messageType) {
       alert("Veuillez remplir les champs obligatoires (Titre, Datasets, Type de données)");
       return;
     }
-    
+
     const datasetsArray = newArticle.datasets.split(',').map(d => d.trim()).filter(d => d);
     const metricsArray = newArticle.metrics.split(',').map(m => m.trim()).filter(m => m);
-    
+
     const articleToAdd: Article = {
       ...newArticle,
       id: Date.now().toString(),
@@ -193,7 +194,7 @@ export default function AdminReferenceOrganizer() {
         mla: `${newArticle.author}. "${newArticle.title}". ${newArticle.year}.`
       }
     } as Article;
-    
+
     setArticles(prev => [articleToAdd, ...prev]);
     handleCloseModal();
   };
@@ -240,13 +241,13 @@ export default function AdminReferenceOrganizer() {
       alert("Please enter a collection name");
       return;
     }
-    
+
     const newCollection: Collection = {
       id: Date.now().toString(),
       name: newCollectionName.trim(),
       count: 0
     };
-    
+
     setCollections(prev => [...prev, newCollection]);
     setNewCollectionName("");
     setIsCollectionModalOpen(false);
@@ -277,7 +278,7 @@ export default function AdminReferenceOrganizer() {
       alert(`Cannot delete collection "${collection.name}" because it contains ${collectionArticleCount} article(s). Move or delete articles first.`);
       return;
     }
-    
+
     setCollectionToDelete(collection);
     setIsDeleteCollectionModalOpen(true);
   };
@@ -287,7 +288,7 @@ export default function AdminReferenceOrganizer() {
       setCollections(prev => prev.filter(collection => collection.id !== collectionToDelete.id));
       setIsDeleteCollectionModalOpen(false);
       setCollectionToDelete(null);
-      
+
       // If we deleted the currently selected collection, switch to the first collection
       if (selectedCollection === collectionToDelete.id && collections.length > 1) {
         setSelectedCollection(collections[0].id);
@@ -312,7 +313,7 @@ export default function AdminReferenceOrganizer() {
           <div className="filters-header">
             <h2>Filters</h2>
           </div>
-          
+
           <div className="main-filters">
             <div className="search-container">
               <Search className="search-icon" />
@@ -324,11 +325,11 @@ export default function AdminReferenceOrganizer() {
                 className="search-input"
               />
             </div>
-            
+
             <div className="filter-group">
               <label>Message Type</label>
-              <select 
-                value={filterMessageType} 
+              <select
+                value={filterMessageType}
                 onChange={(e) => setFilterMessageType(e.target.value)}
                 className="filter-select"
               >
@@ -339,11 +340,11 @@ export default function AdminReferenceOrganizer() {
                 ))}
               </select>
             </div>
-            
+
             <div className="filter-group">
               <label>Sort By</label>
-              <select 
-                value={sortBy} 
+              <select
+                value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="filter-select"
               >
@@ -352,8 +353,8 @@ export default function AdminReferenceOrganizer() {
                 <option value="title">Title A-Z</option>
               </select>
             </div>
-            
-            <button 
+
+            <button
               className="filter-toggle"
               onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
             >
@@ -366,8 +367,8 @@ export default function AdminReferenceOrganizer() {
             <div className="advanced-filters">
               <div className="filter-group">
                 <label>Year</label>
-                <select 
-                  value={filterYear} 
+                <select
+                  value={filterYear}
                   onChange={(e) => setFilterYear(e.target.value)}
                   className="filter-select"
                 >
@@ -378,11 +379,11 @@ export default function AdminReferenceOrganizer() {
                   ))}
                 </select>
               </div>
-              
+
               <div className="filter-group">
                 <label>Dataset</label>
-                <select 
-                  value={filterDataset} 
+                <select
+                  value={filterDataset}
                   onChange={(e) => setFilterDataset(e.target.value)}
                   className="filter-select"
                 >
@@ -415,7 +416,7 @@ export default function AdminReferenceOrganizer() {
                       <span className="collection-count">{count}</span>
                     </button>
                     {collections.length > 1 && (
-                      <button 
+                      <button
                         className="collection-delete-btn"
                         onClick={(e) => {
                           e.stopPropagation();
@@ -430,7 +431,7 @@ export default function AdminReferenceOrganizer() {
                 );
               })}
             </div>
-            
+
             <div className="sidebar-footer">
               <button className="add-collection-btn" onClick={handleOpenCollectionModal}>
                 <Plus className="icon" />
@@ -447,7 +448,7 @@ export default function AdminReferenceOrganizer() {
                 Add Article
               </button>
             </div>
-            
+
             {filteredAndSortedArticles.length === 0 ? (
               <div className="empty-state">
                 <BookOpen className="empty-icon" />
@@ -462,8 +463,8 @@ export default function AdminReferenceOrganizer() {
                       <div className="card-title">
                         <h3 title={article.title}>{article.title.length > 50 ? `${article.title.substring(0, 50)}...` : article.title}</h3>
                         <span className="category-badge">
-                          {article.datasets.length > 0 
-                            ? article.datasets[0] 
+                          {article.datasets.length > 0
+                            ? article.datasets[0]
                             : "No Dataset"}
                         </span>
                       </div>
@@ -489,21 +490,21 @@ export default function AdminReferenceOrganizer() {
                         )}
                       </div>
                       <div className="card-actions">
-                        <button 
+                        <button
                           className="view-btn"
                           onClick={() => handleViewDetails(article)}
                         >
                           <BookOpen className="icon" />
                           View Details
                         </button>
-                        <button 
+                        <button
                           className="cite-btn"
                           onClick={() => handleCiteArticle(article)}
                         >
                           <Quote className="icon" />
                           Cite
                         </button>
-                        <button 
+                        <button
                           className="delete-btn"
                           onClick={() => handleDeleteArticle(article)}
                         >
@@ -528,7 +529,7 @@ export default function AdminReferenceOrganizer() {
                 <X className="icon" />
               </button>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="modal-form">
               <div className="form-grid">
                 <div className="form-group">
@@ -544,7 +545,7 @@ export default function AdminReferenceOrganizer() {
                     required
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="author">Author *</label>
                   <input
@@ -558,7 +559,7 @@ export default function AdminReferenceOrganizer() {
                     required
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="datasets">Datasets *</label>
                   <textarea
@@ -572,7 +573,7 @@ export default function AdminReferenceOrganizer() {
                   />
                   <p className="form-help">Separate multiple datasets with commas</p>
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="messageType">Message Type *</label>
                   <select
@@ -589,7 +590,7 @@ export default function AdminReferenceOrganizer() {
                     ))}
                   </select>
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="collectionId">Collection *</label>
                   <select
@@ -607,7 +608,7 @@ export default function AdminReferenceOrganizer() {
                     ))}
                   </select>
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="year">Year</label>
                   <input
@@ -620,7 +621,7 @@ export default function AdminReferenceOrganizer() {
                     placeholder="Publication year"
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="size">Size</label>
                   <input
@@ -633,7 +634,7 @@ export default function AdminReferenceOrganizer() {
                     placeholder="Dataset size"
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="annotationModel">Annotation Model</label>
                   <input
@@ -646,7 +647,7 @@ export default function AdminReferenceOrganizer() {
                     placeholder="Model name"
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="detectionModel">Detection Model</label>
                   <input
@@ -659,7 +660,7 @@ export default function AdminReferenceOrganizer() {
                     placeholder="Model name"
                   />
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="metrics">Metrics</label>
                   <textarea
@@ -672,7 +673,7 @@ export default function AdminReferenceOrganizer() {
                   />
                   <p className="form-help">Separate multiple metrics with commas</p>
                 </div>
-                
+
                 <div className="form-group">
                   <label htmlFor="downloadUrl">Download URL</label>
                   <input
@@ -686,7 +687,7 @@ export default function AdminReferenceOrganizer() {
                   />
                 </div>
               </div>
-              
+
               <div className="modal-actions">
                 <button type="button" className="btn-cancel" onClick={handleCloseModal}>
                   Cancel
@@ -709,7 +710,7 @@ export default function AdminReferenceOrganizer() {
                 <X className="icon" />
               </button>
             </div>
-            
+
             <div className="modal-form">
               <div className="form-group">
                 <label htmlFor="collectionName">Collection Name *</label>
@@ -723,7 +724,7 @@ export default function AdminReferenceOrganizer() {
                   required
                 />
               </div>
-              
+
               <div className="modal-actions">
                 <button type="button" className="btn-cancel" onClick={handleCloseCollectionModal}>
                   Cancel
@@ -746,12 +747,12 @@ export default function AdminReferenceOrganizer() {
                 <X className="icon" />
               </button>
             </div>
-            
+
             <div className="modal-form">
               <p>Are you sure you want to delete the article:</p>
               <h3 className="delete-title">{articleToDelete?.title}</h3>
               <p className="delete-warning">This action cannot be undone.</p>
-              
+
               <div className="modal-actions">
                 <button type="button" className="btn-cancel" onClick={cancelDeleteArticle}>
                   Cancel
@@ -774,12 +775,12 @@ export default function AdminReferenceOrganizer() {
                 <X className="icon" />
               </button>
             </div>
-            
+
             <div className="modal-form">
               <p>Are you sure you want to delete the collection:</p>
               <h3 className="delete-title">{collectionToDelete?.name}</h3>
               <p className="delete-warning">This action cannot be undone. Only empty collections can be deleted.</p>
-              
+
               <div className="modal-actions">
                 <button type="button" className="btn-cancel" onClick={cancelDeleteCollection}>
                   Cancel
@@ -802,7 +803,7 @@ export default function AdminReferenceOrganizer() {
                 <X className="icon" />
               </button>
             </div>
-            
+
             <div className="details-content">
               <div className="detail-section">
                 <h3>{selectedArticle.title}</h3>
@@ -816,7 +817,7 @@ export default function AdminReferenceOrganizer() {
                   </span>
                 </div>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Datasets</h4>
                 <ul className="detail-list">
@@ -825,28 +826,28 @@ export default function AdminReferenceOrganizer() {
                   ))}
                 </ul>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Authors</h4>
                 <p>{selectedArticle.author || "No authors listed"}</p>
               </div>
-              
+
               <div className="detail-grid">
                 <div className="detail-item">
                   <h4>Size</h4>
                   <p>{selectedArticle.size || "—"}</p>
                 </div>
-                
+
                 <div className="detail-item">
                   <h4>Annotation Model</h4>
                   <p>{selectedArticle.annotationModel || "—"}</p>
                 </div>
-                
+
                 <div className="detail-item">
                   <h4>Detection Model</h4>
                   <p>{selectedArticle.detectionModel || "—"}</p>
                 </div>
-                
+
                 <div className="detail-item">
                   <h4>Metrics</h4>
                   <ul className="detail-list">
@@ -856,10 +857,10 @@ export default function AdminReferenceOrganizer() {
                   </ul>
                 </div>
               </div>
-              
+
               <div className="detail-section">
                 <h4>Access</h4>
-                <button 
+                <button
                   className="download-btn"
                   onClick={() => handleDownloadRedirect(selectedArticle.downloadUrl)}
                   disabled={!selectedArticle.downloadUrl}
@@ -882,42 +883,55 @@ export default function AdminReferenceOrganizer() {
                 <X className="icon" />
               </button>
             </div>
-            
+
             <div className="citation-content">
               <div className="citation-item">
                 <h3>APA Style</h3>
                 <div className="citation-text">
                   {selectedArticle.citations.apa}
                 </div>
-                <button 
+                <button
                   className="copy-btn"
                   onClick={() => navigator.clipboard.writeText(selectedArticle.citations.apa)}
                 >
                   Copy
                 </button>
               </div>
-              
+
               <div className="citation-item">
                 <h3>ISO 690</h3>
                 <div className="citation-text">
                   {selectedArticle.citations.iso690}
                 </div>
-                <button 
+                <button
                   className="copy-btn"
                   onClick={() => navigator.clipboard.writeText(selectedArticle.citations.iso690)}
                 >
                   Copy
                 </button>
               </div>
-              
+
               <div className="citation-item">
                 <h3>MLA Style</h3>
                 <div className="citation-text">
                   {selectedArticle.citations.mla}
                 </div>
-                <button 
+                <button
                   className="copy-btn"
                   onClick={() => navigator.clipboard.writeText(selectedArticle.citations.mla)}
+                >
+                  Copy
+                </button>
+              </div>
+
+              <div className="citation-item">
+                <h3>BibTex</h3>
+                <div className="citation-text">
+                  {selectedArticle.citations.bibtex}
+                </div>
+                <button
+                  className="copy-btn"
+                  onClick={() => navigator.clipboard.writeText(selectedArticle.citations.bibtex)}
                 >
                   Copy
                 </button>
