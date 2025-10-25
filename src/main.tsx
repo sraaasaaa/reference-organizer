@@ -1,11 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './assets/index.css'
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AdminReferenceOrganizer from './App';
+import UserReferenceOrganizer from './user';
 
-import App from './App.tsx'
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/admin" element={<AdminReferenceOrganizer />} />
+        <Route path="/user" element={<UserReferenceOrganizer />} />
+        <Route path="/" element={<UserReferenceOrganizer />} /> {/* par défaut */}
+      </Routes>
+    </Router>
+  );
+}
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <App />
+);
+
+export default App;

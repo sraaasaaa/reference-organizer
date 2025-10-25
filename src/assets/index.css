@@ -192,8 +192,14 @@ body {
   padding: 0 0.5rem;
 }
 
+.collection-item-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
 .collection-item {
-  width: 100%;
+  flex: 1;
   padding: 1rem 1.5rem;
   background: transparent;
   border: none;
@@ -202,7 +208,6 @@ body {
   justify-content: space-between;
   align-items: center;
   border-radius: 0.75rem;
-  margin-bottom: 0.25rem;
   cursor: pointer;
   transition: var(--transition);
   color: var(--text-primary);
@@ -225,6 +230,24 @@ body {
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+.collection-delete-btn {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  color: #ef4444;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collection-delete-btn:hover {
+  background: #fecaca;
 }
 
 .sidebar-footer {
@@ -360,7 +383,6 @@ body {
 
 .reference-details {
   flex: 1;
-  /* margin-bottom: 1.5rem; */
 }
 
 .reference-details p {
@@ -373,8 +395,14 @@ body {
   color: var(--text-primary);
 }
 
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
 .view-btn {
-  width: 100%;
+  flex: 1;
   padding: 0.75rem;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   color: white;
@@ -391,6 +419,43 @@ body {
 
 .view-btn:hover {
   opacity: 0.9;
+}
+
+.cite-btn {
+  flex: 1;
+  padding: 0.3rem;
+  background: var(--background);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.cite-btn:hover {
+  background: #f3f4f6;
+}
+
+.delete-btn {
+  padding: 0.5rem;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  color: #ef4444;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #fecaca;
 }
 
 /* État vide */
@@ -496,7 +561,8 @@ body {
   }
   
   .view-btn,
-  .cite-btn {
+  .cite-btn,
+  .delete-btn {
     width: 100%;
   }
 }
@@ -646,6 +712,21 @@ body {
   opacity: 0.9;
 }
 
+.btn-delete {
+  padding: 0.75rem 1.5rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}
+
 /* Styles pour la modale de citation */
 .citation-content {
   padding: 1.5rem;
@@ -699,32 +780,6 @@ body {
   opacity: 0.9;
 }
 
-.card-actions {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.cite-btn {
-  flex: 1;
-  padding: 0.75rem;
-  background: var(--background);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: var(--transition);
-}
-
-.cite-btn:hover {
-  background: #f3f4f6;
-}
-
 .card-title h3,
 .reference-details p {
   overflow: hidden;
@@ -752,6 +807,19 @@ body {
   min-height: 60px;
   display: flex;
   align-items: center;
+}
+
+/* Styles pour la modale de suppression */
+.delete-title {
+  font-weight: 600;
+  margin: 1rem 0;
+  color: var(--text-primary);
+}
+
+.delete-warning {
+  color: #ef4444;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
 }
 
 /* Responsive */

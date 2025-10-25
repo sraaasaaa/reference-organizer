@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, Plus, BookOpen, Folder, Calendar, X, Quote, Filter, ExternalLink, Trash2 } from "lucide-react";
+import { Search, BookOpen, Folder, Calendar, X, Quote, Filter, ExternalLink } from "lucide-react";
 import "./assets/index.css";
 
 import articlesData from "./data/articles.json";
@@ -57,7 +57,7 @@ const INITIAL_COLLECTIONS: Omit<Collection, 'count'>[] = [
   { id: "4", name: "Theoretical" },
 ];
 
-export default function AdminReferenceOrganizer() {
+export default function UserReferenceOrganizer() {
   const [articles, setArticles] = useState<Article[]>(articlesData as Article[]);
   const [collections, setCollections] = useState<Collection[]>(() => 
     INITIAL_COLLECTIONS.map(collection => ({
@@ -71,31 +71,10 @@ export default function AdminReferenceOrganizer() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [selectedCollection, setSelectedCollection] = useState("1");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCitationModalOpen, setIsCitationModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [isCollectionModalOpen, setIsCollectionModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isDeleteCollectionModalOpen, setIsDeleteCollectionModalOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [articleToDelete, setArticleToDelete] = useState<Article | null>(null);
-  const [collectionToDelete, setCollectionToDelete] = useState<Collection | null>(null);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [newCollectionName, setNewCollectionName] = useState("");
-
-  const [newArticle, setNewArticle] = useState({
-    title: "",
-    datasets: "",
-    messageType: "",
-    size: "",
-    annotationModel: "",
-    detectionModel: "",
-    metrics: "",
-    year: "",
-    author: "",
-    downloadUrl: "",
-    collectionId: "1"
-  });
 
   // Extract unique datasets for filter
   const uniqueDatasets = useMemo(() => {
@@ -142,62 +121,6 @@ export default function AdminReferenceOrganizer() {
     }
   }, [articles, filterMessageType, filterYear, filterDataset, searchTerm, sortBy, selectedCollection]);
 
-  const handleAddArticle = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setNewArticle({
-      title: "",
-      datasets: "",
-      messageType: "",
-      size: "",
-      annotationModel: "",
-      detectionModel: "",
-      metrics: "",
-      year: "",
-      author: "",
-      downloadUrl: "",
-      collectionId: "1"
-    });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setNewArticle(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!newArticle.title || !newArticle.datasets || !newArticle.messageType) {
-      alert("Veuillez remplir les champs obligatoires (Titre, Datasets, Type de données)");
-      return;
-    }
-    
-    const datasetsArray = newArticle.datasets.split(',').map(d => d.trim()).filter(d => d);
-    const metricsArray = newArticle.metrics.split(',').map(m => m.trim()).filter(m => m);
-    
-    const articleToAdd: Article = {
-      ...newArticle,
-      id: Date.now().toString(),
-      datasets: datasetsArray,
-      metrics: metricsArray,
-      citations: {
-        apa: `${newArticle.author} (${newArticle.year}). ${newArticle.title}.`,
-        iso690: `${newArticle.author}. ${newArticle.title} [en ligne]. ${newArticle.year}.`,
-        mla: `${newArticle.author}. "${newArticle.title}". ${newArticle.year}.`
-      }
-    } as Article;
-    
-    setArticles(prev => [articleToAdd, ...prev]);
-    handleCloseModal();
-  };
-
   const handleViewDetails = (article: Article) => {
     setSelectedArticle(article);
     setIsDetailsModalOpen(true);
@@ -226,86 +149,12 @@ export default function AdminReferenceOrganizer() {
     }
   };
 
-  const handleOpenCollectionModal = () => {
-    setIsCollectionModalOpen(true);
-  };
-
-  const handleCloseCollectionModal = () => {
-    setIsCollectionModalOpen(false);
-    setNewCollectionName("");
-  };
-
-  const handleCreateCollection = () => {
-    if (!newCollectionName.trim()) {
-      alert("Please enter a collection name");
-      return;
-    }
-    
-    const newCollection: Collection = {
-      id: Date.now().toString(),
-      name: newCollectionName.trim(),
-      count: 0
-    };
-    
-    setCollections(prev => [...prev, newCollection]);
-    setNewCollectionName("");
-    setIsCollectionModalOpen(false);
-  };
-
-  const handleDeleteArticle = (article: Article) => {
-    setArticleToDelete(article);
-    setIsDeleteModalOpen(true);
-  };
-
-  const confirmDeleteArticle = () => {
-    if (articleToDelete) {
-      setArticles(prev => prev.filter(article => article.id !== articleToDelete.id));
-      setIsDeleteModalOpen(false);
-      setArticleToDelete(null);
-    }
-  };
-
-  const cancelDeleteArticle = () => {
-    setIsDeleteModalOpen(false);
-    setArticleToDelete(null);
-  };
-
-  const handleDeleteCollection = (collection: Collection) => {
-    // Prevent deletion of collections that still have articles
-    const collectionArticleCount = articles.filter(article => article.collectionId === collection.id).length;
-    if (collectionArticleCount > 0) {
-      alert(`Cannot delete collection "${collection.name}" because it contains ${collectionArticleCount} article(s). Move or delete articles first.`);
-      return;
-    }
-    
-    setCollectionToDelete(collection);
-    setIsDeleteCollectionModalOpen(true);
-  };
-
-  const confirmDeleteCollection = () => {
-    if (collectionToDelete) {
-      setCollections(prev => prev.filter(collection => collection.id !== collectionToDelete.id));
-      setIsDeleteCollectionModalOpen(false);
-      setCollectionToDelete(null);
-      
-      // If we deleted the currently selected collection, switch to the first collection
-      if (selectedCollection === collectionToDelete.id && collections.length > 1) {
-        setSelectedCollection(collections[0].id);
-      }
-    }
-  };
-
-  const cancelDeleteCollection = () => {
-    setIsDeleteCollectionModalOpen(false);
-    setCollectionToDelete(null);
-  };
-
   return (
     <div className="app-container">
       <div className="main-layout">
         <header className="app-header">
-          <h1>References Organizer - Admin</h1>
-          <p>Manage and organize your research articles</p>
+          <h1>References Organizer - User View</h1>
+          <p>Browse and explore research articles</p>
         </header>
 
         <div className="filters-section">
@@ -406,46 +255,22 @@ export default function AdminReferenceOrganizer() {
               {collections.map((collection) => {
                 const count = articles.filter(article => article.collectionId === collection.id).length;
                 return (
-                  <div key={collection.id} className="collection-item-wrapper">
-                    <button
-                      className={`collection-item ${selectedCollection === collection.id ? 'active' : ''}`}
-                      onClick={() => setSelectedCollection(collection.id)}
-                    >
-                      <span>{collection.name}</span>
-                      <span className="collection-count">{count}</span>
-                    </button>
-                    {collections.length > 1 && (
-                      <button 
-                        className="collection-delete-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteCollection(collection);
-                        }}
-                        title="Delete collection"
-                      >
-                        <Trash2 className="icon" />
-                      </button>
-                    )}
-                  </div>
+                  <button
+                    key={collection.id}
+                    className={`collection-item ${selectedCollection === collection.id ? 'active' : ''}`}
+                    onClick={() => setSelectedCollection(collection.id)}
+                  >
+                    <span>{collection.name}</span>
+                    <span className="collection-count">{count}</span>
+                  </button>
                 );
               })}
-            </div>
-            
-            <div className="sidebar-footer">
-              <button className="add-collection-btn" onClick={handleOpenCollectionModal}>
-                <Plus className="icon" />
-                New Collection
-              </button>
             </div>
           </div>
 
           <div className="main-content">
             <div className="content-header">
               <h2>References ({filteredAndSortedArticles.length})</h2>
-              <button className="add-reference-btn" onClick={handleAddArticle}>
-                <Plus className="icon" />
-                Add Article
-              </button>
             </div>
             
             {filteredAndSortedArticles.length === 0 ? (
@@ -503,12 +328,6 @@ export default function AdminReferenceOrganizer() {
                           <Quote className="icon" />
                           Cite
                         </button>
-                        <button 
-                          className="delete-btn"
-                          onClick={() => handleDeleteArticle(article)}
-                        >
-                          <Trash2 className="icon" />
-                        </button>
                       </div>
                     </div>
                   </div>
@@ -518,280 +337,6 @@ export default function AdminReferenceOrganizer() {
           </div>
         </div>
       </div>
-
-      {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2>Add New Article</h2>
-              <button className="modal-close" onClick={handleCloseModal}>
-                <X className="icon" />
-              </button>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="modal-form">
-              <div className="form-grid">
-                <div className="form-group">
-                  <label htmlFor="title">Title *</label>
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={newArticle.title}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Article title"
-                    required
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="author">Author *</label>
-                  <input
-                    type="text"
-                    id="author"
-                    name="author"
-                    value={newArticle.author}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Author name"
-                    required
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="datasets">Datasets *</label>
-                  <textarea
-                    id="datasets"
-                    name="datasets"
-                    value={newArticle.datasets}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Dataset1, Dataset2, Dataset3"
-                    required
-                  />
-                  <p className="form-help">Separate multiple datasets with commas</p>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="messageType">Message Type *</label>
-                  <select
-                    id="messageType"
-                    name="messageType"
-                    value={newArticle.messageType}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    required
-                  >
-                    <option value="">Select type</option>
-                    {MESSAGE_TYPES.filter(type => type !== "All").map(type => (
-                      <option key={type} value={type}>{MESSAGE_TYPE_MAP[type] || type}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="collectionId">Collection *</label>
-                  <select
-                    id="collectionId"
-                    name="collectionId"
-                    value={newArticle.collectionId}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    required
-                  >
-                    {collections.map(collection => (
-                      <option key={collection.id} value={collection.id}>
-                        {collection.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="year">Year</label>
-                  <input
-                    type="text"
-                    id="year"
-                    name="year"
-                    value={newArticle.year}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Publication year"
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="size">Size</label>
-                  <input
-                    type="text"
-                    id="size"
-                    name="size"
-                    value={newArticle.size}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Dataset size"
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="annotationModel">Annotation Model</label>
-                  <input
-                    type="text"
-                    id="annotationModel"
-                    name="annotationModel"
-                    value={newArticle.annotationModel}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Model name"
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="detectionModel">Detection Model</label>
-                  <input
-                    type="text"
-                    id="detectionModel"
-                    name="detectionModel"
-                    value={newArticle.detectionModel}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Model name"
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="metrics">Metrics</label>
-                  <textarea
-                    id="metrics"
-                    name="metrics"
-                    value={newArticle.metrics}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Accuracy, F1, BLEU"
-                  />
-                  <p className="form-help">Separate multiple metrics with commas</p>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="downloadUrl">Download URL</label>
-                  <input
-                    type="url"
-                    id="downloadUrl"
-                    name="downloadUrl"
-                    value={newArticle.downloadUrl}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="https://example.com/download"
-                  />
-                </div>
-              </div>
-              
-              <div className="modal-actions">
-                <button type="button" className="btn-cancel" onClick={handleCloseModal}>
-                  Cancel
-                </button>
-                <button type="submit" className="btn-submit">
-                  Add Article
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {isCollectionModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2>Create New Collection</h2>
-              <button className="modal-close" onClick={handleCloseCollectionModal}>
-                <X className="icon" />
-              </button>
-            </div>
-            
-            <div className="modal-form">
-              <div className="form-group">
-                <label htmlFor="collectionName">Collection Name *</label>
-                <input
-                  type="text"
-                  id="collectionName"
-                  value={newCollectionName}
-                  onChange={(e) => setNewCollectionName(e.target.value)}
-                  className="form-input"
-                  placeholder="Enter collection name"
-                  required
-                />
-              </div>
-              
-              <div className="modal-actions">
-                <button type="button" className="btn-cancel" onClick={handleCloseCollectionModal}>
-                  Cancel
-                </button>
-                <button type="button" className="btn-submit" onClick={handleCreateCollection}>
-                  Create Collection
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isDeleteModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2>Confirm Deletion</h2>
-              <button className="modal-close" onClick={cancelDeleteArticle}>
-                <X className="icon" />
-              </button>
-            </div>
-            
-            <div className="modal-form">
-              <p>Are you sure you want to delete the article:</p>
-              <h3 className="delete-title">{articleToDelete?.title}</h3>
-              <p className="delete-warning">This action cannot be undone.</p>
-              
-              <div className="modal-actions">
-                <button type="button" className="btn-cancel" onClick={cancelDeleteArticle}>
-                  Cancel
-                </button>
-                <button type="button" className="btn-delete" onClick={confirmDeleteArticle}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isDeleteCollectionModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h2>Confirm Deletion</h2>
-              <button className="modal-close" onClick={cancelDeleteCollection}>
-                <X className="icon" />
-              </button>
-            </div>
-            
-            <div className="modal-form">
-              <p>Are you sure you want to delete the collection:</p>
-              <h3 className="delete-title">{collectionToDelete?.name}</h3>
-              <p className="delete-warning">This action cannot be undone. Only empty collections can be deleted.</p>
-              
-              <div className="modal-actions">
-                <button type="button" className="btn-cancel" onClick={cancelDeleteCollection}>
-                  Cancel
-                </button>
-                <button type="button" className="btn-delete" onClick={confirmDeleteCollection}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {isDetailsModalOpen && selectedArticle && (
         <div className="modal-overlay">
@@ -929,4 +474,3 @@ export default function AdminReferenceOrganizer() {
     </div>
   );
 }
-

@@ -225,6 +225,25 @@
     "iso690": "BUECHEL, Sven et HAHN, Udo. Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis. arXiv preprint arXiv:2205.01996, 2022.",
     "mla": "Buechel, Sven, and Udo Hahn. \"Emobank: Studying the impact of annotation perspective and representation format on dimensional emotion analysis.\" arXiv preprint arXiv:2205.01996 (2022)."
   }
+},
+{
+  "id": "13",
+  "title": "VAD-assisted Multitask Transformer Framework for Emotion Recognition and Intensity Prediction on Suicide Notes",
+  "datasets": ["CEASEv2.0"],
+  "messageType": "Suicide notes",
+  "size": "4,932 sentences",
+  "annotationModel": "15 emotions",
+  "detectionModel": "Multitask Transformer integrating BERT and VAD-assisted attention",
+  "metrics": ["m-F1", "s-F1","Mean Recall"],
+  "year": "2022",
+  "author": "S Ghosh, A Ekbal, P Bhattacharyya",
+  "downloadUrl": "https://www-sciencedirect-com.sndl1.arn.dz/search?qs=VAD-assisted+multitask+transformer+framework+for+emotion+recognition+and+intensity+prediction+on+suicide+notes",
+  "collectionId": "1",
+  "citations": {
+    "apa": "Ghosh, S., Ekbal, A., & Bhattacharyya, P. (2023). VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes. Information Processing & Management, 60(2), 103234.",
+    "iso690": "GHOSH, Soumitra, EKBAL, Asif, et BHATTACHARYYA, Pushpak. VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes. Information Processing & Management, 2023, vol. 60, no 2, p. 103234.",
+    "mla": "Ghosh, Soumitra, Asif Ekbal, and Pushpak Bhattacharyya. \"VAD-assisted multitask transformer framework for emotion recognition and intensity prediction on suicide notes.\" Information Processing & Management 60.2 (2023): 103234."
+  }
 }
 
 
