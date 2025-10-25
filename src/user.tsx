@@ -59,8 +59,8 @@ const INITIAL_COLLECTIONS: Omit<Collection, 'count'>[] = [
 ];
 
 export default function UserReferenceOrganizer() {
-    const [articles, setArticles] = useState<Article[]>(articlesData as Article[]);
-    const [collections, setCollections] = useState<Collection[]>(() =>
+    const [articles] = useState<Article[]>(articlesData as Article[]);
+    const [collections] = useState<Collection[]>(() =>
         INITIAL_COLLECTIONS.map(collection => ({
             ...collection,
             count: (articlesData as Article[]).filter(article => article.collectionId === collection.id).length

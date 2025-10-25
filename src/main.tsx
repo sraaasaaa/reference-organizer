@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminReferenceOrganizer from './App';
-import UserReferenceOrganizer from './user';
+import UserReferenceOrganizer from './User';
 
 function App() {
   return (
