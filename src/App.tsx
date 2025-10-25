@@ -304,8 +304,8 @@ export default function AdminReferenceOrganizer() {
     <div className="app-container">
       <div className="main-layout">
         <header className="app-header">
-          <h1>References Organizer - Admin</h1>
-          <p>Manage and organize your research articles</p>
+          <h1>References Archive</h1>
+          <p>Explore key research references on text-based emotion detection.</p>
         </header>
 
         <div className="filters-section">

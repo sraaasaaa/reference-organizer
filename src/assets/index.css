@@ -852,15 +852,14 @@ body {
 }
 
 .filters-header {
-  margin-bottom: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color);
 }
 
 .filters-header h2 {
   font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-weight: 850;
+  color: #024059
 }
 
 /* Barre de filtres principaux */
@@ -887,9 +886,9 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background-color: var(--card-bg);
+  background-color: #FBF8F1;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: 5%;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -897,7 +896,7 @@ body {
 }
 
 .filter-toggle:hover {
-  background-color: #f1f5f9;
+  background-color: #FBF8F1;
 }
 
 .filter-toggle .icon {
@@ -1073,3 +1072,84 @@ body {
     align-items: flex-start;
   }
 }
+.collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+/* Collection Item Wrapper - pour le mode admin avec corbeille */
+.collection-item-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+/* Collection Item - pour les deux modes */
+.collection-item {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-primary);
+  font-weight: 500;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.collection-item:hover {
+  background: #F0E4DB;
+}
+
+.collection-item.active {
+  background: #E8D4C2;
+  color: black;
+}
+
+.collection-count {
+  background: #FBF8F1;
+  color: black;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Delete Button - seulement en mode admin */
+.collection-delete-btn {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #ef4444;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  min-width: 44px;
+  height: 44px;
+}
+
+.collection-delete-btn:hover {
+  background: #fecaca;
+  border-color: #fca5a5;
+}
+
+/* Pour le mode utilisateur - sans wrapper */
+.collection-item.user-mode {
+  margin-bottom: 0.25rem;
+}
+
+/* ... styles existants ... */

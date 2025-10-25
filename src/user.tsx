@@ -62,7 +62,7 @@ export default function UserReferenceOrganizer() {
   const [collections, setCollections] = useState<Collection[]>(() => 
     INITIAL_COLLECTIONS.map(collection => ({
       ...collection,
-      count: articlesData.filter((article: any) => article.collectionId === collection.id).length
+      count: (articlesData as Article[]).filter(article => article.collectionId === collection.id).length
     }))
   );
   const [filterMessageType, setFilterMessageType] = useState("All");
@@ -76,11 +76,11 @@ export default function UserReferenceOrganizer() {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
-  // Extract unique datasets for filter
+  // Extract unique datasets for filter with deduplication
   const uniqueDatasets = useMemo(() => {
     const allDatasets = articles.flatMap(article => article.datasets);
     const unique = [...new Set(allDatasets)];
-    return ["All", ...unique.sort()];
+    return unique.sort((a, b) => a.localeCompare(b));
   }, [articles]);
 
   // Extract unique years for filter
@@ -105,6 +105,7 @@ export default function UserReferenceOrganizer() {
       return matchesType && matchesYear && matchesDataset && matchesSearch && matchesCollection;
     });
 
+    // Tri corrigé avec A-Z fonctionnel
     switch (sortBy) {
       case "newest":
         return [...filtered].sort((a, b) => 
@@ -115,7 +116,7 @@ export default function UserReferenceOrganizer() {
           a.year.localeCompare(b.year) || a.title.localeCompare(b.title)
         );
       case "title":
-        return [...filtered].sort((a, b) => a.title.localeCompare(b.title));
+        return [...filtered].sort((a, b) => a.title.localeCompare(b.title)); // Tri A-Z corrigé
       default:
         return filtered;
     }
@@ -153,8 +154,8 @@ export default function UserReferenceOrganizer() {
     <div className="app-container">
       <div className="main-layout">
         <header className="app-header">
-          <h1>References Organizer - User View</h1>
-          <p>Browse and explore research articles</p>
+          <h1>References Archive</h1>
+          <p>Explore key research references on text-based emotion detection.</p>
         </header>
 
         <div className="filters-section">
@@ -235,8 +236,9 @@ export default function UserReferenceOrganizer() {
                   onChange={(e) => setFilterDataset(e.target.value)}
                   className="filter-select"
                 >
+                  <option value="All">All Datasets</option>
                   {uniqueDatasets.map((dataset) => (
-                    <option key={dataset} value={dataset}>
+                    <option key={dataset} value={dataset} title={dataset}>
                       {dataset.length > 30 ? `${dataset.substring(0, 30)}...` : dataset}
                     </option>
                   ))}

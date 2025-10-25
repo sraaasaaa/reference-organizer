@@ -135,7 +135,7 @@
   {
     "id": "8",
     "title": "'Only ChatGPT gets me': An Empirical Analysis of GPT versus other Large Language Models for Emotion Detection in Text",
-    "datasets": ["GoEmotions "],
+    "datasets": ["GoEmotions"],
     "messageType": "Reddit Comments",
     "size": "58,000 sentences",
     "annotationModel": "28 labels",
