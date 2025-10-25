@@ -9,15 +9,16 @@ import articlesData from "./data/articles.json";
 interface Article {
   id: string;
   title: string;
-  dataset: string;
+  datasets: string[]; // Changed to array
   messageType: string;
   size: string;
   annotationModel: string;
   detectionModel: string;
-  metric: string;
+  metrics: string[]; // Changed to array
   year: string;
   author: string;
-  downloadUrl: string; // Ajout de l'URL de téléchargement
+  downloadUrl: string;
+  collectionId: string;
   citations: {
     apa: string;
     iso690: string;
@@ -33,19 +34,27 @@ interface Collection {
 
 const MESSAGE_TYPES = [
   "All",
-  "Text Analysis",
-  "Network Data",
-  "Multimodal",
-  "Medical Text",
-  "Satellite Images",
-  "Audio"
+  "Blogs+lettres+guides",
+  "Tweets",
+  "Conversations",
+  "Commentaires Reddit",
+  "Histoires"
 ];
 
-const COLLECTIONS: Collection[] = [
-  { id: "1", name: "Research Papers", count: 12 },
-  { id: "2", name: "Book References", count: 8 },
-  { id: "3", name: "Articles", count: 15 },
-  { id: "4", name: "Thesis", count: 5 },
+const MESSAGE_TYPE_MAP: Record<string, string> = {
+  "All": "All",
+  "Blogs+lettres+guides": "Blogs/Letters/Guides",
+  "Tweets": "Tweets",
+  "Conversations": "Conversations",
+  "Commentaires Reddit": "Reddit Comments",
+  "Histoires": "Stories"
+};
+
+const COLLECTIONS: Omit<Collection, 'count'>[] = [
+  { id: "1", name: "Research Papers" },
+  { id: "2", name: "Review/Survey" },
+  { id: "3", name: "Application/Case Study" },
+  { id: "4", name: "Theoretical" },
 ];
 
 export default function ReferenceOrganizer() {
@@ -64,45 +73,58 @@ export default function ReferenceOrganizer() {
 
   const [newArticle, setNewArticle] = useState({
     title: "",
-    dataset: "",
+    datasets: "", // Comma-separated string for input
     messageType: "",
     size: "",
     annotationModel: "",
     detectionModel: "",
-    metric: "",
+    metrics: "", // Comma-separated string for input
     year: "",
     author: "",
-    downloadUrl: "" // Ajout du champ URL
+    downloadUrl: "",
+    collectionId: "1"
   });
 
-  // Extraire les années uniques pour le filtre
+  // Calculate dynamic collection counts
+  const collectionsWithCounts: Collection[] = useMemo(() => {
+    return COLLECTIONS.map(collection => {
+      const count = articles.filter(article => article.collectionId === collection.id).length;
+      return {
+        ...collection,
+        count
+      };
+    });
+  }, [articles]);
+
+  // Extract unique datasets for filter
+  const uniqueDatasets = useMemo(() => {
+    const allDatasets = articles.flatMap(article => article.datasets);
+    const unique = [...new Set(allDatasets)];
+    return ["All", ...unique.sort()];
+  }, [articles]);
+
+  // Extract unique years for filter
   const uniqueYears = useMemo(() => {
     const years = [...new Set(articles.map(article => article.year))];
     return ["All", ...years.sort((a, b) => b.localeCompare(a))];
   }, [articles]);
 
-  // Extraire les datasets uniques pour le filtre
-  const uniqueDatasets = useMemo(() => {
-    const datasets = [...new Set(articles.map(article => article.dataset))];
-    return ["All", ...datasets.sort()];
-  }, [articles]);
-
   const filteredAndSortedArticles = useMemo(() => {
-    // Filtrage
     const filtered = articles.filter(article => {
       const matchesType = filterMessageType === "All" || article.messageType === filterMessageType;
       const matchesYear = filterYear === "All" || article.year === filterYear;
-      const matchesDataset = filterDataset === "All" || article.dataset === filterDataset;
+      const matchesDataset = filterDataset === "All" || article.datasets.includes(filterDataset);
       const matchesSearch = 
         (article.title?.toLowerCase() || "").includes(searchTerm.toLowerCase()) || 
-        (article.dataset?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+        article.datasets.some(dataset => dataset.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (article.annotationModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
         (article.detectionModel?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
-        (article.author?.toLowerCase() || "").includes(searchTerm.toLowerCase());
-      return matchesType && matchesYear && matchesDataset && matchesSearch;
+        (article.author?.toLowerCase() || "").includes(searchTerm.toLowerCase()) ||
+        article.metrics.some(metric => metric.toLowerCase().includes(searchTerm.toLowerCase()));
+      const matchesCollection = article.collectionId === selectedCollection;
+      return matchesType && matchesYear && matchesDataset && matchesSearch && matchesCollection;
     });
 
-    // Tri
     switch (sortBy) {
       case "newest":
         return [...filtered].sort((a, b) => 
@@ -117,7 +139,7 @@ export default function ReferenceOrganizer() {
       default:
         return filtered;
     }
-  }, [articles, filterMessageType, filterYear, filterDataset, searchTerm, sortBy]);
+  }, [articles, filterMessageType, filterYear, filterDataset, searchTerm, sortBy, selectedCollection]);
 
   const handleAddArticle = () => {
     setIsModalOpen(true);
@@ -125,22 +147,22 @@ export default function ReferenceOrganizer() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Réinitialiser le formulaire
     setNewArticle({
       title: "",
-      dataset: "",
+      datasets: "",
       messageType: "",
       size: "",
       annotationModel: "",
       detectionModel: "",
-      metric: "",
+      metrics: "",
       year: "",
       author: "",
-      downloadUrl: ""
+      downloadUrl: "",
+      collectionId: "1"
     });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setNewArticle(prev => ({
       ...prev,
@@ -151,27 +173,27 @@ export default function ReferenceOrganizer() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation basique
-    if (!newArticle.title || !newArticle.dataset || !newArticle.messageType) {
-      alert("Veuillez remplir les champs obligatoires (Titre, Dataset, Type de données)");
+    if (!newArticle.title || !newArticle.datasets || !newArticle.messageType) {
+      alert("Veuillez remplir les champs obligatoires (Titre, Datasets, Type de données)");
       return;
     }
     
-    // Créer le nouvel article avec citations vides (à remplir selon vos besoins)
+    const datasetsArray = newArticle.datasets.split(',').map(d => d.trim()).filter(d => d);
+    const metricsArray = newArticle.metrics.split(',').map(m => m.trim()).filter(m => m);
+    
     const articleToAdd: Article = {
       ...newArticle,
       id: Date.now().toString(),
+      datasets: datasetsArray,
+      metrics: metricsArray,
       citations: {
         apa: `${newArticle.author} (${newArticle.year}). ${newArticle.title}.`,
         iso690: `${newArticle.author}. ${newArticle.title} [en ligne]. ${newArticle.year}.`,
         mla: `${newArticle.author}. "${newArticle.title}". ${newArticle.year}.`
       }
-    };
+    } as Article;
     
-    // Ajouter à la liste
     setArticles(prev => [articleToAdd, ...prev]);
-    
-    // Fermer la modale et réinitialiser
     handleCloseModal();
   };
 
@@ -216,13 +238,12 @@ export default function ReferenceOrganizer() {
             <h2>Filters</h2>
           </div>
           
-          {/* Filtres principaux */}
           <div className="main-filters">
             <div className="search-container">
               <Search className="search-icon" />
               <input
                 type="text"
-                placeholder="Search by title, dataset, or models..."
+                placeholder="Search by title, datasets, or metrics..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
@@ -238,7 +259,7 @@ export default function ReferenceOrganizer() {
               >
                 {MESSAGE_TYPES.map((type) => (
                   <option key={type} value={type}>
-                    {type}
+                    {MESSAGE_TYPE_MAP[type] || type}
                   </option>
                 ))}
               </select>
@@ -266,7 +287,6 @@ export default function ReferenceOrganizer() {
             </button>
           </div>
 
-          {/* Filtres avancés */}
           {showAdvancedFilters && (
             <div className="advanced-filters">
               <div className="filter-group">
@@ -303,13 +323,12 @@ export default function ReferenceOrganizer() {
         </div>
 
         <div className="content-layout">
-          {/* Collections à gauche */}
           <div className="sidebar">
             <div className="sidebar-header">
               <h2><Folder className="icon" /> Collections</h2>
             </div>
             <div className="collections-list">
-              {COLLECTIONS.map((collection) => (
+              {collectionsWithCounts.map((collection) => (
                 <button
                   key={collection.id}
                   className={`collection-item ${selectedCollection === collection.id ? 'active' : ''}`}
@@ -329,7 +348,6 @@ export default function ReferenceOrganizer() {
             </div>
           </div>
 
-          {/* Résultats en cartes */}
           <div className="main-content">
             <div className="content-header">
               <h2>References ({filteredAndSortedArticles.length})</h2>
@@ -352,23 +370,36 @@ export default function ReferenceOrganizer() {
                     <div className="card-header">
                       <div className="card-title">
                         <h3 title={article.title}>{article.title.length > 50 ? `${article.title.substring(0, 50)}...` : article.title}</h3>
-                        <span className="category-badge">{article.messageType}</span>
+                        <span className="category-badge">
+                          {article.datasets.length > 0 
+                            ? article.datasets[0] 
+                            : "No Dataset"}
+                        </span>
                       </div>
                       <p className="author"><Calendar className="icon inline mr-1" /> {article.year}</p>
                     </div>
                     <div className="card-content">
                       <div className="reference-details">
-                        <p title={article.dataset}>
-                          <span className="detail-label">Dataset:</span> {article.dataset?.length > 40 ? `${article.dataset.substring(0, 40)}...` : article.dataset || "—"}
+                        <p title={article.messageType}>
+                          <MessageSquare className="icon inline mr-1" />
+                          <span className="detail-label">Type:</span> {MESSAGE_TYPE_MAP[article.messageType] || article.messageType}
                         </p>
+                        {article.datasets.length > 1 && (
+                          <p>
+                            <Database className="icon inline mr-1" />
+                            <span className="detail-label">+{article.datasets.length - 1} more datasets</span>
+                          </p>
+                        )}
                         <p title={article.detectionModel}>
-                          <div className="icon inline mr-1" />
+                          <Brain className="icon inline mr-1" />
                           <span className="detail-label">Detection Model:</span> {article.detectionModel?.length > 40 ? `${article.detectionModel.substring(0, 40)}...` : article.detectionModel || "—"}
                         </p>
-                        <p title={article.author}>
-                          <div className="icon inline mr-1" />
-                          <span className="detail-label">Author:</span> {article.author?.length > 40 ? `${article.author.substring(0, 40)}...` : article.author || "—"}
-                        </p>
+                        {article.metrics.length > 0 && (
+                          <p title={article.metrics.join(', ')}>
+                            <Target className="icon inline mr-1" />
+                            <span className="detail-label">Metrics:</span> {article.metrics[0]}{article.metrics.length > 1 ? ` (+${article.metrics.length - 1})` : ''}
+                          </p>
+                        )}
                       </div>
                       <div className="card-actions">
                         <button 
@@ -395,7 +426,6 @@ export default function ReferenceOrganizer() {
         </div>
       </div>
 
-      {/* Modale d'ajout d'article */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -437,17 +467,17 @@ export default function ReferenceOrganizer() {
                 </div>
                 
                 <div className="form-group">
-                  <label htmlFor="dataset">Dataset *</label>
-                  <input
-                    type="text"
-                    id="dataset"
-                    name="dataset"
-                    value={newArticle.dataset}
+                  <label htmlFor="datasets">Datasets *</label>
+                  <textarea
+                    id="datasets"
+                    name="datasets"
+                    value={newArticle.datasets}
                     onChange={handleInputChange}
                     className="form-input"
-                    placeholder="Dataset name"
+                    placeholder="Dataset1, Dataset2, Dataset3"
                     required
                   />
+                  <p className="form-help">Separate multiple datasets with commas</p>
                 </div>
                 
                 <div className="form-group">
@@ -462,7 +492,25 @@ export default function ReferenceOrganizer() {
                   >
                     <option value="">Select type</option>
                     {MESSAGE_TYPES.filter(type => type !== "All").map(type => (
-                      <option key={type} value={type}>{type}</option>
+                      <option key={type} value={type}>{MESSAGE_TYPE_MAP[type] || type}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="collectionId">Collection *</label>
+                  <select
+                    id="collectionId"
+                    name="collectionId"
+                    value={newArticle.collectionId}
+                    onChange={handleInputChange}
+                    className="form-input"
+                    required
+                  >
+                    {COLLECTIONS.map(collection => (
+                      <option key={collection.id} value={collection.id}>
+                        {collection.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -520,16 +568,16 @@ export default function ReferenceOrganizer() {
                 </div>
                 
                 <div className="form-group">
-                  <label htmlFor="metric">Metric</label>
-                  <input
-                    type="text"
-                    id="metric"
-                    name="metric"
-                    value={newArticle.metric}
+                  <label htmlFor="metrics">Metrics</label>
+                  <textarea
+                    id="metrics"
+                    name="metrics"
+                    value={newArticle.metrics}
                     onChange={handleInputChange}
                     className="form-input"
-                    placeholder="Evaluation metric"
+                    placeholder="Accuracy, F1, BLEU"
                   />
+                  <p className="form-help">Separate multiple metrics with commas</p>
                 </div>
                 
                 <div className="form-group">
@@ -559,7 +607,6 @@ export default function ReferenceOrganizer() {
         </div>
       )}
 
-      {/* Modale de détails */}
       {isDetailsModalOpen && selectedArticle && (
         <div className="modal-overlay">
           <div className="modal-content details-modal">
@@ -579,9 +626,18 @@ export default function ReferenceOrganizer() {
                     {selectedArticle.year}
                   </span>
                   <span className="meta-item category-badge">
-                    {selectedArticle.messageType}
+                    {MESSAGE_TYPE_MAP[selectedArticle.messageType] || selectedArticle.messageType}
                   </span>
                 </div>
+              </div>
+              
+              <div className="detail-section">
+                <h4>Datasets</h4>
+                <ul className="detail-list">
+                  {selectedArticle.datasets.map((dataset, index) => (
+                    <li key={index}>{dataset}</li>
+                  ))}
+                </ul>
               </div>
               
               <div className="detail-section">
@@ -590,11 +646,6 @@ export default function ReferenceOrganizer() {
               </div>
               
               <div className="detail-grid">
-                <div className="detail-item">
-                  <h4>Dataset</h4>
-                  <p>{selectedArticle.dataset || "—"}</p>
-                </div>
-                
                 <div className="detail-item">
                   <h4>Size</h4>
                   <p>{selectedArticle.size || "—"}</p>
@@ -611,8 +662,12 @@ export default function ReferenceOrganizer() {
                 </div>
                 
                 <div className="detail-item">
-                  <h4>Metric</h4>
-                  <p>{selectedArticle.metric || "—"}</p>
+                  <h4>Metrics</h4>
+                  <ul className="detail-list">
+                    {selectedArticle.metrics.map((metric, index) => (
+                      <li key={index}>{metric}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
               
@@ -632,7 +687,6 @@ export default function ReferenceOrganizer() {
         </div>
       )}
 
-      {/* Modale de citation */}
       {isCitationModalOpen && selectedArticle && (
         <div className="modal-overlay">
           <div className="modal-content citation-modal">
