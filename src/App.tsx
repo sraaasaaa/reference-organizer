@@ -175,13 +175,18 @@ export default function AdminReferenceOrganizer() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!newArticle.title || !newArticle.datasets || !newArticle.messageType) {
-      alert("Veuillez remplir les champs obligatoires (Titre, Datasets, Type de données)");
+    if (!newArticle.title) {
+      alert("Veuillez remplir le champ obligatoire : Titre");
       return;
     }
 
-    const datasetsArray = newArticle.datasets.split(',').map(d => d.trim()).filter(d => d);
-    const metricsArray = newArticle.metrics.split(',').map(m => m.trim()).filter(m => m);
+    const datasetsArray = newArticle.datasets
+      ? newArticle.datasets.split(',').map(d => d.trim()).filter(d => d)
+      : [];
+
+    const metricsArray = newArticle.metrics
+      ? newArticle.metrics.split(',').map(m => m.trim()).filter(m => m)
+      : [];
 
     const articleToAdd: Article = {
       ...newArticle,
@@ -561,7 +566,7 @@ export default function AdminReferenceOrganizer() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="datasets">Datasets *</label>
+                  <label htmlFor="datasets">Datasets</label>
                   <textarea
                     id="datasets"
                     name="datasets"
@@ -569,20 +574,18 @@ export default function AdminReferenceOrganizer() {
                     onChange={handleInputChange}
                     className="form-input"
                     placeholder="Dataset1, Dataset2, Dataset3"
-                    required
                   />
                   <p className="form-help">Separate multiple datasets with commas</p>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="messageType">Message Type *</label>
+                  <label htmlFor="messageType">Message Type</label>
                   <select
                     id="messageType"
                     name="messageType"
                     value={newArticle.messageType}
                     onChange={handleInputChange}
                     className="form-input"
-                    required
                   >
                     <option value="">Select type</option>
                     {MESSAGE_TYPES.filter(type => type !== "All").map(type => (
