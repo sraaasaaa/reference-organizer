@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/admin" element={<AdminReferenceOrganizer />} />
         <Route path="/user" element={<UserReferenceOrganizer />} />
-        <Route path="/" element={<AdminReferenceOrganizer />} />
+        <Route path="/" element={<UserReferenceOrganizer />} />
       </Routes>
     </Router>
   );
