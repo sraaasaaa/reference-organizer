@@ -155,7 +155,7 @@ export default function UserReferenceOrganizer() {
         <div className="app-container">
             <div className="main-layout">
                 <header className="app-header">
-                    <h1>References Archive</h1>
+                    <h1>Emotion-Based Bibliographic System</h1>
                     <p>Explore key research references on text-based emotion detection.</p>
                 </header>
 

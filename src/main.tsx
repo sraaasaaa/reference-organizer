@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import AdminReferenceOrganizer from './App';
-import UserReferenceOrganizer from './User';
+import UserReferenceOrganizer from './user';
 
 function App() {
   return (
